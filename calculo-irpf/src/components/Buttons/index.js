@@ -11,9 +11,15 @@ export const DefaultButton = ({ name, color }) => (
 
 );
 
-export const ButtonCalc = ({ name, color, onCLick }) => (
+export const ButtonCalc = ({
+  name, color, onCLick, type
+}) => (
   <Button
-    onClick={() => onCLick()}
+    type={type}
+    onClick={(e) => {
+      e.preventDefault();
+      onCLick();
+    }}
     variant="contained"
     color={color}
     startIcon={<ShowChartIcon />}
