@@ -1,11 +1,17 @@
 import { React, useState } from 'react';
-import { AliquotaTable } from '../TabelaIRPF';
-import { UserTable } from '../UserTable';
-import { InputCalc } from '../InputCalcIRPF';
+import { AliquotaTable } from '../AliquotaTable';
+import { IRPFTable } from '../IRPFTable';
+import { INSSTable } from '../INSSTable';
+import { IRRFTable } from '../IRRFTable';
+import { InputCalcIRPF } from '../InputCalcIRPF';
+import { TextContainer } from './styles';
+import { InputCalcINSS } from '../InputCalcINSS';
+import { InputCalcIRRF } from '../InputCalcIRRF';
 
 export const Item1 = () => (
-  <>
+  <TextContainer>
     <h4>O que é IRPF?</h4>
+
     <p>
       Declaração de Imposto de Renda Pessoa Física 2020
       Todo ano, de março a abril, chega a hora de declarar seu imposto de renda.
@@ -42,11 +48,11 @@ export const Item1 = () => (
       Quem exerce atividade rural e teve receita bruta acima de R$ 142.798,50
       ou que pretende compensar prejuízos de anos anteriores ou até mesmo de 2019.
     </p>
-  </>
+  </TextContainer>
 );
 
 export const Item2 = () => (
-  <>
+  <TextContainer>
     <h3>Item2</h3>
     <p>
       Declaração de Imposto de Renda Pessoa Física 2020
@@ -60,38 +66,66 @@ export const Item2 = () => (
       não ter problemas futuros com o fisco.
     </p>
     <AliquotaTable />
-  </>
+  </TextContainer>
 );
 
-// const UserOut = {
-//   name: 'Victor Freitas',
-//   rendimentoAnualBruto: 40000,
-//   porcentagemAliquota: '7%',
-//   baseDeCalculo: 32000,
-//   deducaoSimplificada: '8000',
-//   impostoInicial: 1700,
-//   parcelaDedutivel: 800,
-//   impostoRenda: 900
-
-// };
-
 export const Item3 = () => {
-  const [userCsv, setUserCsv] = useState();
+  const [userCsv, setUserCsv] = useState(null);
 
-  const getUser = (user) => setUserCsv(user);
+  const getUser = (user) => {
+    setUserCsv(null);
+    setUserCsv(user);
+  };
 
   return (
-    <>
-      <h3>Item3</h3>
-      <p>
-        Declaração de Imposto de Renda Pessoa Física 2020
-      </p>
+    <TextContainer>
+      <h3>Declaração de Imposto de Renda Pessoa Física 2020 </h3>
 
-      <InputCalc getUser={getUser} />
+      <InputCalcIRPF getUser={getUser} />
 
       {userCsv
-        && <UserTable userCalc={userCsv} />}
+        && <IRPFTable userCalc={userCsv} />}
 
-    </>
+    </TextContainer>
+  );
+};
+
+export const Item4 = () => {
+  const [userCsv, setUserCsv] = useState(null);
+
+  const getUser = (user) => {
+    setUserCsv(null);
+    setUserCsv(user);
+  };
+
+  return (
+    <TextContainer>
+      <h3>Calculo INSS 2021</h3>
+      <InputCalcINSS getUser={getUser} />
+
+      {userCsv
+        && <INSSTable userCalc={userCsv} />}
+
+    </TextContainer>
+  );
+};
+
+export const Item5 = () => {
+  const [userCsv, setUserCsv] = useState(null);
+
+  const getUser = (user) => {
+    setUserCsv(null);
+    setUserCsv(user);
+  };
+
+  return (
+    <TextContainer>
+      <h3>Calculo IRRF 2021</h3>
+      <InputCalcIRRF getUser={getUser} />
+
+      {userCsv
+        && <IRRFTable userCalc={userCsv} />}
+
+    </TextContainer>
   );
 };
