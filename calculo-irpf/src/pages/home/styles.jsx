@@ -16,27 +16,8 @@ export const Container = styled.div`
     width: 100vw;
 `;
 
-export const ListContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 15px;
-  max-width: 100%;
-  min-width: 100%;
-  align-items:center;
-
-  h4{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-    }
-
-  p{
-    display: flex;
-  }
-`;
-
 export const MenuContent = styled.div`
+margin-top: 20px;
 display: flex;
-justify-content: center;
+flex:1;
 `;

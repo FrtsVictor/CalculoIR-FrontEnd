@@ -32,9 +32,32 @@ export const ItemList2 = styled.div`
 `;
 
 export const ItemList3 = styled.div`
-  background-color: ${(props) => {
+background-color: ${(props) => {
     if (props.activeColor) {
       return '#cfcfcf';
     } return 'white';
   }}
+`;
+
+export const ItemList4 = styled.div`
+background-color: ${(props) => {
+    if (props.activeColor) {
+      return '#cfcfcf';
+    } return 'white';
+  }}
+`;
+
+export const ItemList5 = styled.div`
+background-color: ${(props) => {
+    if (props.activeColor) {
+      return '#cfcfcf';
+    } return 'white';
+  }}
+`;
+
+export const TextContainer = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+margin: 0 5%;
 `;
