@@ -3,32 +3,31 @@ import { React, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { UseStyles, FormContainer, ButtonContainer } from './styles';
 import { ButtonCalc } from '../Buttons';
-import { CpfMask } from '../CpfMask';
 import { apiIRPF } from '../../services';
 import { AlertMessage } from '../AlertMessage';
 
-export const InputCalcIRPF = ({ getUser }) => {
+export const InputCalcIRRF = ({ getUser }) => {
   const classes = UseStyles();
   const [name, setName] = useState('Victor Freitas');
-  const [cpf, setCpf] = useState('160.428.137-57');
-  const [annualIncome, setAnnualIncome] = useState(40000);
+  const [grossSalary, setGrossSalary] = useState(3000);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [dependents, setDependents] = useState(0);
+  const [childSupport, setChildSupport] = useState(0);
 
   const calculate = async () => {
-    const newUser = {
+    const user = {
       nome: name,
-      cpf,
-      rendimentoAnualBruto: annualIncome,
+      salarioBruto: grossSalary,
+      dependentes: dependents,
+      pensaoAlimenticia: childSupport,
     };
-
     // const resetFiled = () => {
     //   setName('');
     //   setCpf('');
     //   setAnnualIncome('');
     // };
-
-    await apiIRPF.calculateIRFP(newUser)
+    await apiIRPF.calculateIRRF(user)
       .then((data) => {
         setLoading(true);
         getUser(data);
@@ -50,24 +49,28 @@ export const InputCalcIRPF = ({ getUser }) => {
         <form className={classes.root} noValidate autoComplete="off">
           <div>
             <TextField
-              id="nome"
+              id="name"
               label="Nome completo"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-
             <TextField
-              id="cpf"
-              label="CPF"
-              value={cpf}
-              onChange={(e) => { setCpf(CpfMask(e.target.value)); }}
+              id="grosSalary"
+              label="Salario Mensal Bruto"
+              value={grossSalary}
+              onChange={(e) => setGrossSalary(e.target.value)}
             />
-
             <TextField
-              id="cash"
-              label="Rendimento Anual Bruto"
-              value={annualIncome}
-              onChange={(e) => setAnnualIncome(e.target.value)}
+              id="dependents"
+              label="Dependentes"
+              value={dependents}
+              onChange={(e) => setDependents(e.target.value)}
+            />
+            <TextField
+              id="childSupport"
+              label="Pensao alimenticia"
+              value={childSupport}
+              onChange={(e) => setChildSupport(e.target.value)}
             />
           </div>
 
