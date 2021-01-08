@@ -12,7 +12,9 @@ export const UseStyles = makeStyles((theme) => ({
 
 export const FormContainer = styled.div`
 display:flex;
-margin: 20px 0;
+align-items:center;
+justify-content:center;
+/* margin: 20px 0; */
 `;
 
 export const ButtonContainer = styled.div`

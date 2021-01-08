@@ -4,7 +4,7 @@ import {
   TableContainer, TableRow, TableHead
 } from './styles';
 
-export const UserTable = ({ userCalc }) => {
+export const IRPFTable = ({ userCalc }) => {
   const currencyFormater = (currencyValue) => new Intl.NumberFormat(
     'pt-BR', { style: 'currency', currency: 'BRL' }
   ).format(currencyValue);
