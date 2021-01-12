@@ -1,10 +1,11 @@
 import { React, useState } from 'react';
+import { MyResponsivePie } from '../PieChart';
 import { AliquotaTable } from '../AliquotaTable';
 import { IRPFTable } from '../IRPFTable';
 import { INSSTable } from '../INSSTable';
 import { IRRFTable } from '../IRRFTable';
 import { InputCalcIRPF } from '../InputCalcIRPF';
-import { TextContainer } from './styles';
+import { TextContainer, TableContainer, ChartContainer } from './styles';
 import { InputCalcINSS } from '../InputCalcINSS';
 import { InputCalcIRRF } from '../InputCalcIRRF';
 
@@ -65,7 +66,9 @@ export const Item2 = () => (
       então é importante confirmar se você está no grupo de obrigatoriedade para
       não ter problemas futuros com o fisco.
     </p>
-    <AliquotaTable />
+    <TableContainer>
+      <AliquotaTable />
+    </TableContainer>
   </TextContainer>
 );
 
@@ -78,15 +81,19 @@ export const Item3 = () => {
   };
 
   return (
-    <TextContainer>
+    <>
       <h3>Declaração de Imposto de Renda Pessoa Física 2020 </h3>
 
-      <InputCalcIRPF getUser={getUser} />
+      <div styles={{ display: 'flex' }}>
+        <InputCalcIRPF getUser={getUser} />
 
-      {userCsv
+      </div>
+
+      <TableContainer>
+        {userCsv
         && <IRPFTable userCalc={userCsv} />}
-
-    </TextContainer>
+      </TableContainer>
+    </>
   );
 };
 
@@ -99,33 +106,51 @@ export const Item4 = () => {
   };
 
   return (
-    <TextContainer>
+    <>
       <h3>Calculo INSS 2021</h3>
-      <InputCalcINSS getUser={getUser} />
 
-      {userCsv
+      <div styles={{ display: 'flex', flex: 1 }}>
+        <InputCalcINSS getUser={getUser} />
+
+        <TableContainer>
+          {userCsv
         && <INSSTable userCalc={userCsv} />}
-
-    </TextContainer>
+        </TableContainer>
+      </div>
+    </>
   );
 };
 
 export const Item5 = () => {
   const [userCsv, setUserCsv] = useState(null);
 
+  // const data = [
+  //   {
+  //     id: 'Dependentes',
+  //     label: 'Dependentes',
+  //     value: 300,
+  //   },
+  // ];
   const getUser = (user) => {
-    setUserCsv(null);
     setUserCsv(user);
   };
 
   return (
-    <TextContainer>
+    <>
       <h3>Calculo IRRF 2021</h3>
-      <InputCalcIRRF getUser={getUser} />
 
-      {userCsv
-        && <IRRFTable userCalc={userCsv} />}
+      <div styles={{ display: 'flex', flex: 1 }}>
+        <InputCalcIRRF getUser={getUser} />
 
-    </TextContainer>
+        <TableContainer>
+          {userCsv && <IRRFTable userCalc={userCsv} />}
+        </TableContainer>
+
+        <ChartContainer>
+          {userCsv && <MyResponsivePie data={userCsv} />}
+        </ChartContainer>
+
+      </div>
+    </>
   );
 };
