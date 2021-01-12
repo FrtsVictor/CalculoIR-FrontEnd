@@ -35,6 +35,5 @@ export const INSSTable = ({ userCalc }) => {
         <p>{currencyFormater(userCalc.inss)}</p>
       </TableRow>
     </TableContainer>
-
   );
 };
