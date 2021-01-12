@@ -12,8 +12,8 @@ export const InputCalcIRRF = ({ getUser }) => {
   const [grossSalary, setGrossSalary] = useState(3000);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [dependents, setDependents] = useState(0);
-  const [childSupport, setChildSupport] = useState(0);
+  const [dependents, setDependents] = useState(2);
+  const [childSupport, setChildSupport] = useState(150);
 
   const calculate = async () => {
     const user = {

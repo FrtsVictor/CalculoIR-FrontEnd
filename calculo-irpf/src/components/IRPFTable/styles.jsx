@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const TableContainer = styled.div`
 display: flex;
-min-width: 600px;
+min-width: 300px;
 flex-direction: column;
 font-size: 0.90rem;
 
@@ -16,7 +16,7 @@ export const TableRow = styled.div`
 display: flex;
 justify-content: space-between;
 align-items: center;
-height: 50px;
+height: 35px;
 
 p{
   margin-right: 10px;
@@ -26,7 +26,7 @@ p{
 
 export const TableHead = styled.div`
 display: flex;
-height: 50px;
+height: 35px;
 align-items: center;
 font-weight: 600;
 justify-content: center;

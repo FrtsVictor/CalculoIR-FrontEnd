@@ -3,14 +3,12 @@ import { React, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { UseStyles, FormContainer, ButtonContainer } from './styles';
 import { ButtonCalc } from '../Buttons';
-import { CpfMask } from '../CpfMask';
 import { apiIRPF } from '../../services';
 import { AlertMessage } from '../AlertMessage';
 
 export const InputCalcIRPF = ({ getUser }) => {
   const classes = UseStyles();
   const [name, setName] = useState('Victor Freitas');
-  const [cpf, setCpf] = useState('160.428.137-57');
   const [annualIncome, setAnnualIncome] = useState(40000);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -18,7 +16,6 @@ export const InputCalcIRPF = ({ getUser }) => {
   const calculate = async () => {
     const newUser = {
       nome: name,
-      cpf,
       rendimentoAnualBruto: annualIncome,
     };
 
@@ -54,13 +51,6 @@ export const InputCalcIRPF = ({ getUser }) => {
               label="Nome completo"
               value={name}
               onChange={(e) => setName(e.target.value)}
-            />
-
-            <TextField
-              id="cpf"
-              label="CPF"
-              value={cpf}
-              onChange={(e) => { setCpf(CpfMask(e.target.value)); }}
             />
 
             <TextField
