@@ -3,14 +3,17 @@ import { React, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { UseStyles, FormContainer, ButtonContainer } from './styles';
 import { ButtonCalc } from '../Buttons';
-import { apiIRPF } from '../../services';
+import { apiIRPF, verifyApiErrors } from '../../services';
 import { AlertMessage } from '../AlertMessage';
+import { useUser } from '../core/UserProvider/useUser';
 
 export const InputCalcIRPF = ({ getUser }) => {
+  const { user: { nome } } = useUser();
   const classes = UseStyles();
-  const [name, setName] = useState('Victor Freitas');
+  const [name, setName] = useState(nome || '');
   const [annualIncome, setAnnualIncome] = useState(40000);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrormessage] = useState(false);
   const [error, setError] = useState(false);
 
   const calculate = async () => {
@@ -19,21 +22,23 @@ export const InputCalcIRPF = ({ getUser }) => {
       rendimentoAnualBruto: annualIncome,
     };
 
-    // const resetFiled = () => {
-    //   setName('');
-    //   setCpf('');
-    //   setAnnualIncome('');
-    // };
+    const resetFiled = () => {
+      setAnnualIncome('');
+    };
 
-    await apiIRPF.calculateIRFP(newUser)
+    await apiIRPF.calculte.IRFP(newUser)
       .then((data) => {
         setLoading(true);
-        getUser(data);
-        // resetFiled();
-        if (!data) {
+        setErrormessage(verifyApiErrors(data));
+
+        if (errorMessage) {
           setError(true);
           setTimeout(() => { setError(false); }, 2000);
+          return;
         }
+
+        getUser(data.nome ? data : null);
+        resetFiled();
       }).finally(
         () => setLoading(false),
       );

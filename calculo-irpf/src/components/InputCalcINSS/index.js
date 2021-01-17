@@ -1,37 +1,45 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-filename-extension */
 import { React, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { UseStyles, FormContainer, ButtonContainer } from './styles';
 import { ButtonCalc } from '../Buttons';
-import { apiIRPF } from '../../services';
+import { apiIRPF, verifyApiErrors } from '../../services';
 import { AlertMessage } from '../AlertMessage';
+import { useUser } from '../core/UserProvider/useUser';
 
 export const InputCalcINSS = ({ getUser }) => {
+  const { user: { nome } } = useUser();
+
   const classes = UseStyles();
-  const [name, setName] = useState('Victor Freitas');
-  const [grossSalary, setGrossSalary] = useState(3000);
+  const [name, setName] = useState(nome || '');
+  const [grossSalary, setGrossSalary] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [errorMessage, setErrormessage] = useState(false);
 
   const handleSignUp = async () => {
     const newUser = {
       nome: name,
-      salarioBruto: grossSalary,
+      salarioMensalBruto: grossSalary,
     };
-    // const resetFiled = () => {
-    //   setName('');
-    //   setCpf('');
-    //   setAnnualIncome('');
-    // };
-    await apiIRPF.calculateINSS(newUser)
+    const resetFiled = () => {
+      setGrossSalary('');
+    };
+
+    await apiIRPF.calculte.INSS(newUser)
       .then((data) => {
         setLoading(true);
-        getUser(data);
-        // resetFiled();
-        if (!data) {
+        setErrormessage(verifyApiErrors(data));
+
+        if (errorMessage) {
           setError(true);
           setTimeout(() => { setError(false); }, 2000);
+          return;
         }
+
+        getUser(data.nome ? data : null);
+        resetFiled();
       }).finally(
         () => setLoading(false),
       );
@@ -39,7 +47,7 @@ export const InputCalcINSS = ({ getUser }) => {
 
   return (
     <>
-      {error && <AlertMessage />}
+      {error && <AlertMessage message={errorMessage} />}
 
       <FormContainer>
         <form className={classes.root} noValidate autoComplete="off">

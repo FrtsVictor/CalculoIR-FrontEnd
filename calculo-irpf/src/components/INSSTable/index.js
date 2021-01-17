@@ -16,7 +16,7 @@ export const INSSTable = ({ userCalc }) => {
       </TableHead>
       <TableRow>
         <p>Salario bruto</p>
-        <p>{currencyFormater(userCalc.salarioBruto)}</p>
+        <p>{currencyFormater(userCalc.salarioMensalBruto)}</p>
       </TableRow>
       <TableRow>
         <p>Aliquota</p>

@@ -3,39 +3,44 @@ import { React, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { UseStyles, FormContainer, ButtonContainer } from './styles';
 import { ButtonCalc } from '../Buttons';
-import { apiIRPF } from '../../services';
+import { apiIRPF, verifyApiErrors } from '../../services';
 import { AlertMessage } from '../AlertMessage';
+import { useUser } from '../core/UserProvider/useUser';
 
 export const InputCalcIRRF = ({ getUser }) => {
+  const { user: { nome } } = useUser();
   const classes = UseStyles();
-  const [name, setName] = useState('Victor Freitas');
-  const [grossSalary, setGrossSalary] = useState(3000);
+  const [name, setName] = useState(nome || '');
+  const [grossSalary, setGrossSalary] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [dependents, setDependents] = useState(2);
-  const [childSupport, setChildSupport] = useState(150);
+  const [dependents, setDependents] = useState(0);
+  const [childSupport, setChildSupport] = useState(0);
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const calculate = async () => {
     const user = {
       nome: name,
-      salarioBruto: grossSalary,
+      salarioMensalBruto: grossSalary,
       dependentes: dependents,
       pensaoAlimenticia: childSupport,
     };
-    // const resetFiled = () => {
-    //   setName('');
-    //   setCpf('');
-    //   setAnnualIncome('');
-    // };
-    await apiIRPF.calculateIRRF(user)
+    const resetFiled = () => {
+      setChildSupport('');
+    };
+    await apiIRPF.calculte.IRRF(user)
       .then((data) => {
         setLoading(true);
-        getUser(data);
-        // resetFiled();
-        if (!data) {
+        setErrorMessage(verifyApiErrors(data));
+
+        if (errorMessage) {
           setError(true);
           setTimeout(() => { setError(false); }, 2000);
+          return;
         }
+
+        getUser(data.nome ? data : null);
+        resetFiled();
       }).finally(
         () => setLoading(false),
       );
