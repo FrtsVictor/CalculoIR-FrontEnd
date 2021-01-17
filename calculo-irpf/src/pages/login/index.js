@@ -11,8 +11,8 @@ import Grid from '@material-ui/core/Grid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 // Hooks
-import { Link } from 'react-router-dom';
-// import { useAuth } from '../../hooks/AuthProviderIntegracao';
+import { Link, useHistory } from 'react-router-dom';
+import { useAuth } from '../../hooks/AuthProvider';
 // Styles
 import {
   Background, useStyles, LogoContainer, BackHome,
@@ -26,8 +26,8 @@ export const Login = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // const history = useHistory();
-  // const { login } = useAuth();
+  const history = useHistory();
+  const { login } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -35,15 +35,15 @@ export const Login = () => {
 
     setLoading(true);
 
-  //   try {
-  //     await login(username, password);
-  //     console.log('Login Sucess');
-  //     history.push('/favoritos');
-  //   } catch (error) {
-  //     console.log('Login  error', error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
+    try {
+      await login(username, password);
+      console.log('Login Sucess');
+      history.push('/home');
+    } catch (error) {
+      console.log('Login  error', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
