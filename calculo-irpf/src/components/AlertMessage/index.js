@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const AlertMessage = () => {
+export const AlertMessage = ({ message }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(true);
 
@@ -33,7 +33,7 @@ export const AlertMessage = () => {
     <div className={classes.root}>
       <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error">
-          Desculpe tivemos uma falha ao calcular seu IRPF
+          {message}
         </Alert>
       </Snackbar>
     </div>
