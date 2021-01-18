@@ -1,16 +1,20 @@
 import { React, useState } from 'react';
-import TextField from '@material-ui/core/TextField';
-import { UseStyles, FormContainer, ButtonContainer } from './styles';
-import { ButtonCalc } from '../Buttons';
-import { apiIRPF, verifyApiErrors } from '../../services';
+// api e hooks
 import { AlertMessage } from '../AlertMessage';
 import { useUser } from '../core/UserProvider/useUser';
+import { apiIRPF, verifyApiErrors } from '../../services';
+//styles
+import { ButtonCalc } from '../Buttons';
+import TextField from '@material-ui/core/TextField';
+import { UseStyles, FormContainer, ButtonContainer } from './styles';
 
-export const FormCalcIRPF = ({ getUser }) => {
-  const { user } = useUser();
+export const FormCalcIRPF = ({ getTableContent }) => {
   const classes = UseStyles();
+  // user
+  const { user } = useUser();
   const [name, setName] = useState(user.nome || '');
   const [annualIncome, setAnnualIncome] = useState(0);
+  // erros
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrormessage] = useState(false);
   const [error, setError] = useState(false);
@@ -36,7 +40,7 @@ export const FormCalcIRPF = ({ getUser }) => {
           return;
         }
 
-        getUser(data.nome ? data : null);
+        getTableContent(data.nome ? data : null);
         resetFiled();
       }).finally(
         () => setLoading(false),
@@ -58,7 +62,8 @@ export const FormCalcIRPF = ({ getUser }) => {
             />
 
             <TextField
-              id="cash"
+              type="number"
+              id="annualIncome"
               label="Rendimento Anual Bruto"
               value={annualIncome}
               onChange={(e) => setAnnualIncome(e.target.value)}
