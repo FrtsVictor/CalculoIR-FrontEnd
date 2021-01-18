@@ -6,7 +6,7 @@ export const MyResponsivePie = ({ data /* see data tab */ }) => {
 
   // const dataGraph = entr.reduce((acc, value) => {
   // if (value[0] !== 'nome' && value[0]
-  // !== 'salarioBruto' && value[0] !== 'baseCalculo' && value[0] !== 'valorTotalDescontos') {
+  // !== 'salarioMensalBruto' && value[0] !== 'baseCalculo' && value[0] !== 'valorTotalDescontos') {
   //     const graph = {
   //       id: value[0],
   //       label: value[0],
