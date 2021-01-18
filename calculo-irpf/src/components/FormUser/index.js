@@ -1,9 +1,11 @@
 import { React, useState } from 'react';
-import TextField from '@material-ui/core/TextField';
-import { UseStyles, FormContainer, ButtonContainer } from './styles';
-import { ButtonUpdate } from '../Buttons';
+// api e hook
 import { apiIRPF, verifyApiErrors } from '../../services';
 import { useUser } from '../core/UserProvider/useUser';
+//styles
+import { ButtonUpdate } from '../Buttons';
+import { UseStyles, FormContainer, ButtonContainer } from './styles';
+import TextField from '@material-ui/core/TextField';
 
 export const FormUser = () => {
   const classes = UseStyles();
@@ -13,14 +15,58 @@ export const FormUser = () => {
   const [name, setName] = useState(user.nome);
   const [grossSalary, setGrossSalary] = useState(user.salarioMensal);
   const [dependents, setDependents] = useState(user.dependentes);
-  const [childSupport, setChildSupport] = useState(user.pensaoAlimenticia);
-  // erros
-  const [error, setError] = useState(false);
+  const [childSupport, setChildSupport] = useState(0 || user.pensaoAlimenticia);
+  // messages
+  const [error, setMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [color, setColor] = useState('red');
+  const [sucessMessage, setSucessMessage ] = useState(false);
+
+
+  const resetMessages = ()=>{
+    setColor('red');
+    setMessage(false);
+    setErrorMessage(false)
+    setSucessMessage(false);
+  }
+
+  const validateFields = () => {
+    resetMessages()
+
+    if (grossSalary < 0 || dependents < 0 || childSupport < 0) {
+      setErrorMessage(' * Valores negativos');
+      setMessage(true);
+      return;
+    }
+
+    if (!name) {
+      setErrorMessage(' * Nome obrigatorio');
+      setMessage(true);
+      return;
+    }
+  }
+
+  const checkApiResponse = (data)=>{
+
+    if (data.status != 204 ) {
+      setErrorMessage(verifyApiErrors(data));
+      setMessage(true);
+      return true;
+    }
+
+    if(data.status == 204){
+      setSucessMessage('Dados atualizados com sucesso !')
+      setMessage(true)
+      setColor('green')
+      return false;
+    }
+
+  }
 
   const updateUser = async () => {
-    setError(false);
+    validateFields()
+
     const userUpdated = {
       nome: name,
       salarioMensal: parseInt(grossSalary),
@@ -29,30 +75,14 @@ export const FormUser = () => {
       username: user.username
     };
 
-    if (!name) {
-      setErrorMessage(' * Nome obrigatorio');
-      setError(true);
-      return;
-    }
-
-    if (grossSalary < 0 || dependents < 0 || childSupport < 0) {
-      setErrorMessage(' * Valores negativos');
-      setError(true);
-      return;
-    }
-
     await apiIRPF.userRoutes.update(userUpdated, user.token)
       .then((data) => {
         setLoading(true);
-
-        if (data) {
-          setErrorMessage(verifyApiErrors(data));
-          setError(true);
-          setTimeout(() => { setError(false); }, 2000);
-          return;
+        const haveErrors = checkApiResponse(data);
+        if(!haveErrors){
+          setUser({ ...userUpdated, token: user.token });
         }
 
-        setUser({ ...userUpdated, token: user.token });
       }).finally(
         () => setLoading(false)
       );
@@ -71,27 +101,33 @@ export const FormUser = () => {
           <TextField
             id="grosSalary"
             label="Salario Mensal Bruto"
+            type="number"
             value={grossSalary}
             onChange={(e) => setGrossSalary(e.target.value)}
           />
           <TextField
+            type="number"
             id="dependents"
             label="Dependentes"
             value={dependents}
             onChange={(e) => setDependents(e.target.value)}
           />
           <TextField
+            type="number"
             id="childSupport"
             label="Pensao alimenticia"
-            type="number"
             value={childSupport}
             onChange={(e) => setChildSupport(e.target.value)}
           />
           {
               error
               && (
-              <p style={{ color: 'red', fontSize: '13px', marginBottom: '5px' }}>
+              <p style={{
+                  color: `${color}`,
+                  fontSize: '13px',
+                  marginBottom: '5px' }}>
                 {errorMessage}
+                {sucessMessage}
               </p>
               )
             }
