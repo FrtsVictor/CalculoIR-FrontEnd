@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
-import BackGroundImg from '../../assets/background_login.jpg';
-import logoImg from '../../assets/logo.png';
+import BackGroundImg from '../../assets/background-login.jpg';
 
 export const useStyles = makeStyles((theme) => ({
   paper: {
@@ -12,19 +11,14 @@ export const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    // backgroundColor: theme.palette.secondary.main,
-
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%',
-    marginTop: theme.spacing(3),
+    width: '80%',
+    marginTop: theme.spacing(1),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-  },
-  link: {
-    color: '#3F51B5',
-    fontWeight: 'bold',
   },
 }));
 
@@ -34,10 +28,14 @@ height:100vh;
 width:100vw;
 background-image: url(${BackGroundImg});
 background-size: cover;
-`;
 
-export const logoImage = styled.div`
-background-image: url(${logoImg});
+button{
+  display: flex;
+  margin: 0 auto;
+  max-width: 200px;
+  min-width: 50%;
+}
+
 `;
 
 export const LogoContainer = styled.div`
@@ -46,7 +44,6 @@ display:flex;
 flex:1;
 justify-content:center;
 mar
-
 img{
         min-width: 250px;
         width: 5vw;
@@ -57,12 +54,10 @@ export const BackHome = styled.div`
 padding: 15px 5px;
 display: flex;
 justify-content: flex-start;
-
     svg{
         fill:#253D71;
         font-size: 30px;
     }
-
     a{
         display: flex;
         align-self:center;
@@ -70,10 +65,14 @@ justify-content: flex-start;
         align-items:center;
         text-decoration: none;
         color: #253D71;
-
         &:hover{
         color: #93c6f9;
         transition: 0.4s;
         }
     }
+`;
+
+export const Alert = styled.p`
+color: 'red';
+font-size: '13px;
 `;
