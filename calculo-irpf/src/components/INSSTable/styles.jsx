@@ -5,6 +5,7 @@ display: flex;
 min-width: 300px;
 flex-direction: column;
 font-size: 0.90rem;
+margin: 1px solid;
 
 div:nth-child(2n+2) {
     background: #F0F0F0;

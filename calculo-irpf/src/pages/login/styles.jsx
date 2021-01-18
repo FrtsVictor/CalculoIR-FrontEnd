@@ -29,12 +29,12 @@ width:100vw;
 background-image: url(${BackGroundImg});
 background-size: cover;
 
-button{
-  display: flex;
-  margin: 0 auto;
-  max-width: 200px;
-  min-width: 50%;
-}
+  button{
+    display: flex;
+    margin: 0 auto;
+    max-width: 200px;
+    min-width: 50%;
+  }
 
 `;
 
@@ -44,35 +44,30 @@ display:flex;
 flex:1;
 justify-content:center;
 mar
-img{
-        min-width: 250px;
-        width: 5vw;
-    }
+  img{
+      min-width: 250px;
+      width: 5vw;
+     }
 `;
 
 export const BackHome = styled.div`
 padding: 15px 5px;
 display: flex;
 justify-content: flex-start;
-    svg{
-        fill:#253D71;
-        font-size: 30px;
-    }
-    a{
-        display: flex;
-        align-self:center;
-        font-size:20px;
-        align-items:center;
-        text-decoration: none;
-        color: #253D71;
+  svg{
+      fill:#253D71;
+      font-size: 30px;
+  }
+  a{
+      display: flex;
+      align-self:center;
+      font-size:20px;
+      align-items:center;
+      text-decoration: none;
+      color: #253D71;
         &:hover{
         color: #93c6f9;
         transition: 0.4s;
         }
-    }
+  }
 `;
-
-// export const Alert = styled.p`
-// color: 'red';
-// font-size: '13px;
-// `;
