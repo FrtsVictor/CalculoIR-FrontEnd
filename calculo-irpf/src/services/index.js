@@ -2,12 +2,12 @@ import axios from 'axios';
 import { LOCAL_STORAGE_KEYS } from '../constants';
 
 export const api = axios.create({
-  baseURL: 'http://localhost:8080/',
+  baseURL: 'https://calc-irpf.herokuapp.com/',
   headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEYS.userAuthToken)}` },
 });
 
 export const apiLogin = axios.create({
-  baseURL: 'http://localhost:8080/'
+  baseURL: 'https://calc-irpf.herokuapp.com//'
 });
 
 export const verifyApiErrors = (data) => {
@@ -81,6 +81,17 @@ export const apiIRPF = {
         console.log('error response', error.response);
         return error.response;
       }
+    },
+    SalLiq: async (user) => {
+      try {
+        const { data } = await api.post('api/calculate/salario-liq', {
+          ...user
+        });
+        return data;
+      } catch (error) {
+        console.log('error response', error.response);
+        return error.response;
+      }
     }
   },
   userRoutes: {
@@ -126,13 +137,14 @@ export const apiIRPF = {
     },
     update: async (user, token) => {
       try {
-        await apiLogin.put('/users', user, {
+        const resp = await apiLogin.put('/users', user, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
-        return false;
+        return resp;
       } catch (error) {
+        console.log(error.response)
         return error.response;
       }
     },
