@@ -17,7 +17,6 @@ export const useStyles = makeStyles({
   },
   linkText: {
     textDecoration: 'none',
-    textTransform: 'uppercase',
     color: '#0000',
   },
 });
@@ -28,6 +27,8 @@ flex-wrap: wrap;
 align-items: center;
 justify-content: space-between;
 background-color: #FFFFFF;
+max-height:70px;
+height: 70px;
 width: 100%;
 max-width: 100%;
 
@@ -44,7 +45,7 @@ max-width: 100%;
     }
 
     span{
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
 
 
