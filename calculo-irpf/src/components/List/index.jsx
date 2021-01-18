@@ -1,156 +1,167 @@
 import { React, useState } from 'react';
-import { MyResponsivePie } from '../PieChart';
 import { AliquotaTable } from '../AliquotaTable';
 import { IRPFTable } from '../IRPFTable';
 import { INSSTable } from '../INSSTable';
 import { IRRFTable } from '../IRRFTable';
-import { InputCalcIRPF } from '../InputCalcIRPF';
-import { TextContainer, TableContainer, ChartContainer } from './styles';
-import { InputCalcINSS } from '../InputCalcINSS';
-import { InputCalcIRRF } from '../InputCalcIRRF';
+import { FormCalcIRPF } from '../FormCalcIRPF';
+import { FormCalcSalLiq } from '../FormCalcSalLiq';
+import {
+  TextContainer, TableContainer, Container
+} from './styles';
+import { FormCalcINSS } from '../FormCalcINSS';
+import { FormCalcIRRF } from '../FormCalcIRRF';
 
-export const Item1 = () => (
+export const WhatIsIRPF = () => (
   <TextContainer>
-    <h4>O que é IRPF?</h4>
+    <div>
+      <h4>O que é IRPF?</h4>
+      <p>
+        Declaração de Imposto de Renda Pessoa Física 2020
+        Todo ano, de março a abril, chega a hora de declarar seu imposto de renda.
+        Até o momento (26/6) quase 25,1 milhões de declarações foram recebidas pela
+        Receita Federal,
+        número bem abaixo das 32 milhões esperadas em 2020.
 
-    <p>
-      Declaração de Imposto de Renda Pessoa Física 2020
-      Todo ano, de março a abril, chega a hora de declarar seu imposto de renda.
-      Até o momento (26/6) quase 25,1 milhões de declarações foram recebidas pela
-      Receita Federal,
-      número bem abaixo das 32 milhões esperadas em 2020.
+        O atraso na entrega gera multa mínima de R$ 165,74,
+        então é importante confirmar se você está no grupo de obrigatoriedade para
+        não ter problemas futuros com o fisco.
+      </p>
+    </div>
 
-      O atraso na entrega gera multa mínima de R$ 165,74,
-      então é importante confirmar se você está no grupo de obrigatoriedade para
-      não ter problemas futuros com o fisco.
-    </p>
-
-    <h4> Quem precisa declarar o imposto?</h4>
-
-    <p>
-      Para começar, é importante entender quais são as situações que te obrigam à entrega
-      desta declaração para a Receita Federal. Confira abaixo quais são elas:
-      Os que receberam rendimentos tributáveis acima de R$ 28.559,70 durante o ano de 2019,
-      como salários, honorários, férias, comissões, pró-labore, receita com aluguel de imóveis,
-      pensões, entre outros.
-      Todos que receberam rendimentos isentos, não tributáveis ou tributados exclusivamente
-      na fonte superior a R$ 40.000,00 durante o ano de 2019, como por exemplo: alimentação,
-      transporte e uniformes fornecidos pela empresa de forma gratuita,
-      reembolso de viagens em geral,
-      salário-família, entre outros.
-      Quem recebeu em qualquer mês, dinheiro por conta de alienação de bens e direitos –
-      em que o IR incida – ou então realizaram operação em bolsas de valores, mercadorias,
-      futuro ou semelhantes;
-      Teve em 31.12.2019 bens ou direitos no valor total superior a 300 mil, somando todos os bens;
-      Aqueles que passaram à condição de residente no Brasil e se mantiveram até 31.12.2019;
-      Todos que venderam imóveis residenciais e obtiveram ganho na operação,
-      mesmo que tenha comprado outro imóvel em um prazo de 180 dias e usaram da
-      regra de isenção do imposto de renda;
-      Quem exerce atividade rural e teve receita bruta acima de R$ 142.798,50
-      ou que pretende compensar prejuízos de anos anteriores ou até mesmo de 2019.
-    </p>
+    <div>
+      <h4> Quem precisa declarar o imposto?</h4>
+      <p>
+        Para começar, é importante entender quais são as situações que te obrigam à entrega
+        desta declaração para a Receita Federal. Confira abaixo quais são elas:
+        Os que receberam rendimentos tributáveis acima de R$ 28.559,70 durante o ano de 2019,
+        como salários, honorários, férias, comissões, pró-labore, receita com aluguel de imóveis,
+        pensões, entre outros.
+        Todos que receberam rendimentos isentos, não tributáveis ou tributados exclusivamente
+        na fonte superior a R$ 40.000,00 durante o ano de 2019, como por exemplo: alimentação,
+        transporte e uniformes fornecidos pela empresa de forma gratuita,
+        reembolso de viagens em geral,
+        salário-família, entre outros.
+        Quem recebeu em qualquer mês, dinheiro por conta de alienação de bens e direitos –
+        em que o IR incida – ou então realizaram operação em bolsas de valores, mercadorias,
+        futuro ou semelhantes;
+        Teve em 31.12.2019 bens ou direitos no valor total superior a 300 mil, somando todos
+        os bens;
+        Aqueles que passaram à condição de residente no Brasil e se mantiveram até 31.12.2019;
+        Todos que venderam imóveis residenciais e obtiveram ganho na operação,
+        mesmo que tenha comprado outro imóvel em um prazo de 180 dias e usaram da
+        regra de isenção do imposto de renda;
+        Quem exerce atividade rural e teve receita bruta acima de R$ 142.798,50
+        ou que pretende compensar prejuízos de anos anteriores ou até mesmo de 2019.
+      </p>
+    </div>
   </TextContainer>
 );
 
-export const Item2 = () => (
+export const HowToCalculate = () => (
   <TextContainer>
-    <h3>Item2</h3>
-    <p>
-      Declaração de Imposto de Renda Pessoa Física 2020
-      Todo ano, de março a abril, chega a hora de declarar seu imposto de renda.
-      Até o momento (26/6) quase 25,1 milhões de declarações foram recebidas pela
-      Receita Federal,
-      número bem abaixo das 32 milhões esperadas em 2020.
+    <div>
+      <h3>Como calcular IRPF</h3>
 
-      O atraso na entrega gera multa mínima de R$ 165,74,
-      então é importante confirmar se você está no grupo de obrigatoriedade para
-      não ter problemas futuros com o fisco.
-    </p>
+      <p>
+        Declaração de Imposto de Renda Pessoa Física 2020
+        Todo ano, de março a abril, chega a hora de declarar seu imposto de renda.
+        Até o momento (26/6) quase 25,1 milhões de declarações foram recebidas pela
+        Receita Federal,
+        número bem abaixo das 32 milhões esperadas em 2020.
+
+        O atraso na entrega gera multa mínima de R$ 165,74,
+        então é importante confirmar se você está no grupo de obrigatoriedade para
+        não ter problemas futuros com o fisco.
+      </p>
+    </div>
     <TableContainer>
       <AliquotaTable />
     </TableContainer>
   </TextContainer>
 );
 
-export const Item3 = () => {
-  const [userCsv, setUserCsv] = useState(null);
+export const CalculateIRPF = () => {
+  const [calculateModel, setCalculateModel] = useState(null);
 
   const getUser = (user) => {
-    setUserCsv(null);
-    setUserCsv(user);
+    setCalculateModel(null);
+    setCalculateModel(user);
   };
 
   return (
-    <>
-      <h3>Declaração de Imposto de Renda Pessoa Física 2020 </h3>
+    <Container>
+      <h4>Calculo IRPF(Imposto renda pessoa fisica)</h4>
 
-      <div styles={{ display: 'flex' }}>
-        <InputCalcIRPF getUser={getUser} />
-
-      </div>
+      <FormCalcIRPF getUser={getUser} />
 
       <TableContainer>
-        {userCsv
-        && <IRPFTable userCalc={userCsv} />}
+        {calculateModel
+        && <IRPFTable userCalc={calculateModel} />}
       </TableContainer>
-    </>
+    </Container>
   );
 };
 
-export const Item4 = () => {
-  const [userCsv, setUserCsv] = useState(null);
+export const CalculateINSS = () => {
+  const [calculateModel, setCalculateModel] = useState(null);
 
   const getUser = (user) => {
-    setUserCsv(null);
-    setUserCsv(user);
+    setCalculateModel(null);
+    setCalculateModel(user);
   };
 
   return (
-    <>
-      <h3>Calculo INSS 2021</h3>
+    <Container>
+      <h4>Calculo INSS 2021</h4>
 
-      <div styles={{ display: 'flex', flex: 1 }}>
-        <InputCalcINSS getUser={getUser} />
+      <FormCalcINSS getUser={getUser} />
 
-        <TableContainer>
-          {userCsv
-        && <INSSTable userCalc={userCsv} />}
-        </TableContainer>
-      </div>
-    </>
+      <TableContainer>
+        {calculateModel
+        && <INSSTable userCalc={calculateModel} />}
+      </TableContainer>
+    </Container>
   );
 };
 
-export const Item5 = () => {
-  const [userCsv, setUserCsv] = useState(null);
+export const CalculateIRRF = () => {
+  const [calculateModel, setCalculateModel] = useState(null);
 
-  // const data = [
-  //   {
-  //     id: 'Dependentes',
-  //     label: 'Dependentes',
-  //     value: 300,
-  //   },
-  // ];
   const getUser = (user) => {
-    setUserCsv(user);
+    setCalculateModel(user);
   };
 
   return (
-    <>
-      <h3>Calculo IRRF 2021</h3>
+    <Container>
+      <h4>Calculo IRRF(Imposto renda retido na fonte) 2021</h4>
 
-      <div styles={{ display: 'flex', flex: 1 }}>
-        <InputCalcIRRF getUser={getUser} />
+      <FormCalcIRRF getUser={getUser} />
 
-        <TableContainer>
-          {userCsv && <IRRFTable userCalc={userCsv} />}
-        </TableContainer>
+      <TableContainer>
+        {calculateModel && <IRRFTable userCalc={calculateModel} />}
+      </TableContainer>
 
-        <ChartContainer>
-          {userCsv && <MyResponsivePie data={userCsv} />}
-        </ChartContainer>
+    </Container>
+  );
+};
 
-      </div>
-    </>
+export const CalculateSalLiq = () => {
+  const [calculateModel, setCalculateModel] = useState(null);
+
+  const getUser = (user) => {
+    setCalculateModel(user);
+  };
+
+  return (
+    <Container>
+      <h4>Calculo IRRF(Imposto renda retido na fonte) 2021</h4>
+
+      <FormCalcSalLiq getUser={getUser} />
+
+      <TableContainer>
+        {calculateModel && <IRRFTable userCalc={calculateModel} />}
+      </TableContainer>
+
+    </Container>
   );
 };
