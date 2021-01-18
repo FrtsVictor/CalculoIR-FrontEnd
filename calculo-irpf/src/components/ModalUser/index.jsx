@@ -1,15 +1,14 @@
 import React from 'react';
+// @material Icons Buttons Modal
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-
-// Icons & Buttons
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+// Form
 import { FormUser } from '../FormUser';
-// Api && Hooks
+// Hooks
 import { useUser } from '../core/UserProvider/useUser';
-
 // Styles
 import {
   PapperContainer, Container
