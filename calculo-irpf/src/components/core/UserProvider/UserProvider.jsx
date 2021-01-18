@@ -9,6 +9,9 @@ const initialValue = {
     username: undefined,
     nome: undefined,
     token: undefined,
+    salarioMensal: undefined,
+    dependentes: undefined,
+    pensaoAlimenticia: undefined
   },
   setUser: () => {},
   clearUser: () => {},

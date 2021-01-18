@@ -16,11 +16,14 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem(LOCAL_STORAGE_KEYS.userAuthToken, authResponse);
 
       if (authResponse) {
-        const userResponse = await apiIRPF.userRoutes.getByUserName(username);
+        const userResponse = await apiIRPF.userRoutes.getByUserName(username, authResponse);
         const userContext = { ...userResponse, token: authResponse };
 
         setUser(userContext);
+        console.log('userContext', userContext);
       }
+
+      return authResponse;
     },
   );
 
