@@ -1,31 +1,31 @@
 import { React, useState } from 'react';
-import TextField from '@material-ui/core/TextField';
-import { UseStyles, FormContainer, ButtonContainer } from './styles';
-import { ButtonCalc } from '../Buttons';
-import { apiIRPF, verifyApiErrors } from '../../services';
+// api e hooks
 import { AlertMessage } from '../AlertMessage';
 import { useUser } from '../core/UserProvider/useUser';
+import { apiIRPF, verifyApiErrors } from '../../services';
+//styles
+import { UseStyles, FormContainer, ButtonContainer } from './styles';
+import TextField from '@material-ui/core/TextField';
+import { ButtonCalc } from '../Buttons';
 
-export const FormCalcINSS = ({ getUser }) => {
+export const FormCalcINSS = ({ getTableContent }) => {
   const { user } = useUser();
-
+// user
   const classes = UseStyles();
   const [name, setName] = useState(user.nome || '');
   const [grossSalary, setGrossSalary] = useState(user.salarioMensal || '');
+// messages
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrormessage] = useState(false);
 
   const handleSignUp = async () => {
-    const newUser = {
+    const calcModel = {
       nome: name,
       salarioMensalBruto: grossSalary,
     };
-    const resetFiled = () => {
-      setGrossSalary('');
-    };
 
-    await apiIRPF.calculte.INSS(newUser)
+    await apiIRPF.calculte.INSS(calcModel)
       .then((data) => {
         setLoading(true);
         setErrormessage(verifyApiErrors(data));
@@ -36,8 +36,7 @@ export const FormCalcINSS = ({ getUser }) => {
           return;
         }
 
-        getUser(data.nome ? data : null);
-        resetFiled();
+        getTableContent(data.nome ? data : null);
       }).finally(
         () => setLoading(false),
       );
@@ -46,7 +45,6 @@ export const FormCalcINSS = ({ getUser }) => {
   return (
     <>
       {error && <AlertMessage message={errorMessage} />}
-
       <FormContainer>
         <form className={classes.root} noValidate autoComplete="off">
           <div>
@@ -58,6 +56,7 @@ export const FormCalcINSS = ({ getUser }) => {
             />
             <TextField
               id="cash"
+              type="number"
               label="Salario Mensal Bruto"
               value={grossSalary}
               onChange={(e) => setGrossSalary(e.target.value)}
