@@ -4,6 +4,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+// styles
 import {
   CalculateINSS, CalculateIRPF, CalculateIRRF, HowToCalculate, WhatIsIRPF, CalculateSalLiq
 } from '../List';
@@ -61,28 +62,29 @@ export const VerticalTabs = () => {
         className={classes.tabs}
       >
         <Tab label="O que é IRPF?" {...a11yProps(0)} />
-        <Tab label="Como calcular IRPF?" {...a11yProps(1)} />
-        <Tab label="Calcule IRPF" {...a11yProps(2)} />
-        <Tab label="Calcule taxa INSS" {...a11yProps(3)} />
-        <Tab label="Calcule IRRF" {...a11yProps(4)} />
-        <Tab label="Calcule salario Liquido" {...a11yProps(5)} />
+        <Tab label="Calcule IRPF" {...a11yProps(1)} />
+        <Tab label="Calcule taxa INSS" {...a11yProps(2)} />
+        <Tab label="Calcule IRRF" {...a11yProps(3)} />
+        <Tab label="Calcule salario Liquido" {...a11yProps(4)} />
       </Tabs>
+
       <TabPanel value={value} index={0}>
         <WhatIsIRPF />
       </TabPanel>
+
       <TabPanel value={value} index={1}>
-        <HowToCalculate />
-      </TabPanel>
-      <TabPanel value={value} index={2}>
         <CalculateIRPF />
       </TabPanel>
-      <TabPanel value={value} index={3}>
+
+      <TabPanel value={value} index={2}>
         <CalculateINSS />
       </TabPanel>
-      <TabPanel value={value} index={4}>
+
+      <TabPanel value={value} index={3}>
         <CalculateIRRF />
       </TabPanel>
-      <TabPanel value={value} index={5}>
+
+      <TabPanel value={value} index={4}>
         <CalculateSalLiq />
       </TabPanel>
     </div>

@@ -4,8 +4,6 @@ export const TableContainer = styled.div`
 display: grid;
 min-width: 100%;
 grid-template-columns: 1fr 1fr 1fr;
-margin-top: 25px;
-
  `;
 
 export const TableHead = styled.div`
@@ -23,5 +21,6 @@ export const TableRow = styled.div`
 display: flex;
 align-items: center;
 height: 35px;
+justify-content: space-around;
 font-size: 0.8rem;
 `;

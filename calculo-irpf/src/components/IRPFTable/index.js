@@ -1,46 +1,52 @@
 import React from 'react';
+// styles
 import {
   TableContainer, TableRow, TableHead
 } from './styles';
 
-export const IRPFTable = ({ userCalc }) => {
-  const currencyFormater = (currencyValue) => new Intl.NumberFormat(
-    'pt-BR', { style: 'currency', currency: 'BRL' }
-  ).format(currencyValue);
+import { currencyFormater } from '../../utils';
 
+export const IRPFTable = ({ tableContent }) => {
   return (
     <TableContainer>
       <TableHead>
-        <p>{userCalc.nome}</p>
+        <p>{tableContent.nome}</p>
       </TableHead>
       <TableRow>
         <p>Rendimento Anual Bruto</p>
-        <p>{currencyFormater(userCalc.rendimentoAnualBruto)}</p>
+        <p>{currencyFormater(tableContent.rendimentoAnualBruto)}</p>
       </TableRow>
+
       <TableRow>
         <p>Dedudao Simplificada</p>
-        <p>{currencyFormater(userCalc.deducaoSimplificada)}</p>
+        <p>{currencyFormater(tableContent.deducaoSimplificada)}</p>
       </TableRow>
+
       <TableRow>
         <p>Base Calculo</p>
-        <p>{currencyFormater(userCalc.baseDeCalculo)}</p>
+        <p>{currencyFormater(tableContent.baseDeCalculo)}</p>
       </TableRow>
+
       <TableRow>
         <p>Aliquota</p>
-        <p>{`${userCalc.porcentagemAliquota}%`}</p>
+        <p>{`${tableContent.porcentagemAliquota}%`}</p>
       </TableRow>
+
       <TableRow>
         <p>Imposto Inicial</p>
-        <p>{currencyFormater(userCalc.impostoInicial)}</p>
+        <p>{currencyFormater(tableContent.impostoInicial)}</p>
       </TableRow>
+
       <TableRow>
         <p>Parcela Dedutivel</p>
-        <p>{currencyFormater(userCalc.parcelaDedutivel)}</p>
+        <p>{currencyFormater(tableContent.parcelaDedutivel)}</p>
       </TableRow>
+
       <TableRow>
         <p>Imposto de Renda</p>
-        <p>{currencyFormater(userCalc.impostoRenda)}</p>
+        <p>{currencyFormater(tableContent.impostoRenda)}</p>
       </TableRow>
+
     </TableContainer>
 
   );

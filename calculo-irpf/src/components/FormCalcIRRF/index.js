@@ -1,12 +1,14 @@
 import { React, useState } from 'react';
-import TextField from '@material-ui/core/TextField';
-import { UseStyles, FormContainer, ButtonContainer } from './styles';
-import { ButtonCalc } from '../Buttons';
-import { apiIRPF, verifyApiErrors } from '../../services';
+// api e hooks
 import { AlertMessage } from '../AlertMessage';
+import { apiIRPF, verifyApiErrors } from '../../services';
 import { useUser } from '../core/UserProvider/useUser';
+//styles
+import TextField from '@material-ui/core/TextField';
+import { ButtonCalc } from '../Buttons';
+import { UseStyles, FormContainer, ButtonContainer } from './styles';
 
-export const FormCalcIRRF = ({ getUser }) => {
+export const FormCalcIRRF = ({ getTableContent }) => {
   const classes = UseStyles();
   // user
   const { user } = useUser();
@@ -38,7 +40,7 @@ export const FormCalcIRRF = ({ getUser }) => {
           return;
         }
 
-        getUser(data.nome ? data : null);
+        getTableContent(data.nome ? data : null);
       }).finally(
         () => setLoading(false),
       );
@@ -60,17 +62,20 @@ export const FormCalcIRRF = ({ getUser }) => {
             <TextField
               id="grosSalary"
               label="Salario Mensal Bruto"
+              type="number"
               value={grossSalary}
               onChange={(e) => setGrossSalary(e.target.value)}
             />
             <TextField
               id="dependents"
+              type="number"
               label="Dependentes"
               value={dependents}
               onChange={(e) => setDependents(e.target.value)}
             />
             <TextField
               id="childSupport"
+              type="number"
               label="Pensao alimenticia"
               value={childSupport}
               onChange={(e) => setChildSupport(e.target.value)}

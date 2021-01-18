@@ -1,9 +1,10 @@
 import React from 'react';
+// styles
 import {
   TableContainer, TableRow, TableHead
 } from './styles';
 
-export const INSSTable = ({ userCalc }) => {
+export const INSSTable = ({ tableContent }) => {
   const currencyFormater = (currencyValue) => new Intl.NumberFormat(
     'pt-BR', { style: 'currency', currency: 'BRL' }
   ).format(currencyValue);
@@ -11,28 +12,34 @@ export const INSSTable = ({ userCalc }) => {
   return (
     <TableContainer>
       <TableHead>
-        <p>{userCalc.nome}</p>
+        <p>{tableContent.nome}</p>
       </TableHead>
+
       <TableRow>
         <p>Salario bruto</p>
-        <p>{currencyFormater(userCalc.salarioMensalBruto)}</p>
+        <p>{currencyFormater(tableContent.salarioMensalBruto)}</p>
       </TableRow>
+
       <TableRow>
         <p>Aliquota</p>
-        <p>{`${userCalc.porcentagemAliquota}%`}</p>
+        <p>{`${tableContent.porcentagemAliquota}%`}</p>
       </TableRow>
+
       <TableRow>
         <p>Deducao aliquota</p>
-        <p>{currencyFormater(userCalc.deducaoAliquota)}</p>
+        <p>{currencyFormater(tableContent.deducaoAliquota)}</p>
       </TableRow>
+
       <TableRow>
         <p>Parcela a deduzir</p>
-        <p>{currencyFormater(userCalc.parcelaADeduzir)}</p>
+        <p>{currencyFormater(tableContent.parcelaADeduzir)}</p>
       </TableRow>
+
       <TableRow>
         <p>INSS</p>
-        <p>{currencyFormater(userCalc.inss)}</p>
+        <p>{currencyFormater(tableContent.inss)}</p>
       </TableRow>
+
     </TableContainer>
   );
 };

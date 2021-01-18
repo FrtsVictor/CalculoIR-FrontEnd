@@ -11,15 +11,24 @@ export const useStyles = makeStyles((theme) => ({
 
 export const TableContainer = styled.div`
 display: flex;
+flex-direction:column;
 flex: 1;
+margin: 15px 0;
 font-size: 10px;
-min-width: 80%;
+max-width: 700px;
+
+  p{
+    font-size: 15px;
+    text-align:center;
+  }
+
 `;
 
 export const TextContainer = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
+justify-content:center;
 margin: 0 5%;
 
 div h4{
@@ -30,16 +39,15 @@ div h4{
 
 `;
 
-export const ChartContainer = styled.div`
-display: flex;
-height: 400px;
-width: 400px
-`;
 
 export const Container = styled.div`
 display:flex;
 flex-direction:column;
-align-items:center;
+align-content:center;
+
+    span{
+      font-size: 14px;
+    }
 
   h4{
     margin-bottom:20px;

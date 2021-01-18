@@ -36,6 +36,11 @@ button{
   min-width: 50%;
 }
 
+  a{
+    display:flex;
+    justify-content:center;
+   font-size: 13px;
+  }
 `;
 
 export const LogoContainer = styled.div`

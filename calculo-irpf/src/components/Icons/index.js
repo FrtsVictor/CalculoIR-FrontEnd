@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon } from '@material-ui/core';
+// svgs
 import Calculator from '../../assets/calculator.svg';
 import List from '../../assets/list.svg';
 import TrendingUp from '../../assets/trending_up.svg';

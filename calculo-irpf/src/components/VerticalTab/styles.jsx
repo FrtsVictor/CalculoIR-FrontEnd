@@ -12,7 +12,8 @@ export const TextContainer = styled.div`
 display: flex;
 flex:1;
 flex-direction: column;
-align-items: center;
+align-items:center;
+justify-content:center;
 margin: 0 5%;
 `;
 
@@ -27,7 +28,7 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: '#fefefe',
     display: 'flex',
-    height: 800,
+    height: '80vh',
   },
   tabs: {
     maxWidth: '16%',
