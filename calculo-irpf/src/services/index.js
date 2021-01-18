@@ -16,16 +16,37 @@ export const apiLogin = axios.create({
 
 export const verifyApiErrors = (data) => {
   if (data.status === 401) {
-    return 'Voce precisa estar autenticado';
+    console.log('aqui');
+    return ' * Voce precisa estar autenticado';
   }
 
   if (data.status === 400) {
-    return 'Verifique seus dados';
+    return ' * Dados incorretos';
+  }
+
+  if (data.status === 403) {
+    return ' * Login expirado';
+  }
+
+  if (data.status > 403) {
+    return ' * Ocorreu um erro interno no servidor';
+  }
+  return null;
+};
+
+export const verifyApiLoginErrors = (data) => {
+  if (data.status === 400 && data.data.details === 'User already registered') {
+    return ' * Usuario ja cadastrado';
+  }
+
+  if (data.status === 400) {
+    return ' * Login ou senha invalidos';
   }
 
   if (data.status > 401) {
-    return 'Ocorreu um erro interno no servidor';
+    return ' * Ocorreu um erro interno no servidor';
   }
+
   return null;
 };
 
@@ -34,13 +55,13 @@ export const apiIRPF = {
   calculte: {
     IRFP: async (user) => {
       try {
-        const { data } = await api.post('api/calculate', {
+        const { data } = await api.post('api/calculate/irpf', {
           ...user
         });
         console.log(data);
         return data;
       } catch (error) {
-        console.log(error.response);
+        console.log('error response', error.response);
         return error.response;
       }
     },
@@ -52,7 +73,7 @@ export const apiIRPF = {
         console.log('dataINSS', data);
         return data;
       } catch (error) {
-        console.log(error.response);
+        console.log('error response', error.response);
         return error.response;
       }
     },
@@ -64,7 +85,7 @@ export const apiIRPF = {
         console.log(data);
         return data;
       } catch (error) {
-        console.log(error.response);
+        console.log('error response', error.response);
         return error.response;
       }
     }
@@ -75,7 +96,6 @@ export const apiIRPF = {
         const { data } = await apiLogin.post('register', {
           ...user
         });
-        console.log(data);
         return data;
       } catch (error) {
         console.log(error.response);
@@ -87,25 +107,41 @@ export const apiIRPF = {
         const { data } = await apiLogin.post('/authenticate', {
           username, password,
         });
-        console.log(data);
         return data.token;
       } catch (error) {
         if (error.response.status === 401) {
           console.log("Ops!', 'username ou senha invalidos', 'error");
         }
         console.log(error);
-        return null;
+        return error.response;
       }
     },
-    getByUserName: async (username) => {
+    getByUserName: async (username, token) => {
       try {
-        const { data } = await api.get(`/users/username/${username}`);
+        const { data } = await apiLogin.get(`/users/username/${username}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         return data;
       } catch (error) {
         if (error.response.status === 404) {
           console.log('Ops!', 'username invalido', 'error');
         }
         return console.log(error);
+      }
+    },
+    update: async (user, token) => {
+      try {
+        await apiLogin.put('/users', user, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        console.log('aqiu');
+        return false;
+      } catch (error) {
+        return error.response;
       }
     },
   }
