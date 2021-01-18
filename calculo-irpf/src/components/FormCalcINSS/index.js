@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-filename-extension */
 import { React, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
@@ -7,26 +8,26 @@ import { apiIRPF, verifyApiErrors } from '../../services';
 import { AlertMessage } from '../AlertMessage';
 import { useUser } from '../core/UserProvider/useUser';
 
-export const InputCalcIRPF = ({ getUser }) => {
-  const { user: { nome } } = useUser();
-  const classes = UseStyles();
-  const [name, setName] = useState(nome || '');
-  const [annualIncome, setAnnualIncome] = useState(40000);
-  const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrormessage] = useState(false);
-  const [error, setError] = useState(false);
+export const FormCalcINSS = ({ getUser }) => {
+  const { user } = useUser();
 
-  const calculate = async () => {
+  const classes = UseStyles();
+  const [name, setName] = useState(user.nome || '');
+  const [grossSalary, setGrossSalary] = useState(user.salarioMensal || '');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrormessage] = useState(false);
+
+  const handleSignUp = async () => {
     const newUser = {
       nome: name,
-      rendimentoAnualBruto: annualIncome,
+      salarioMensalBruto: grossSalary,
     };
-
     const resetFiled = () => {
-      setAnnualIncome('');
+      setGrossSalary('');
     };
 
-    await apiIRPF.calculte.IRFP(newUser)
+    await apiIRPF.calculte.INSS(newUser)
       .then((data) => {
         setLoading(true);
         setErrormessage(verifyApiErrors(data));
@@ -46,7 +47,7 @@ export const InputCalcIRPF = ({ getUser }) => {
 
   return (
     <>
-      {error && <AlertMessage />}
+      {error && <AlertMessage message={errorMessage} />}
 
       <FormContainer>
         <form className={classes.root} noValidate autoComplete="off">
@@ -57,12 +58,11 @@ export const InputCalcIRPF = ({ getUser }) => {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-
             <TextField
               id="cash"
-              label="Rendimento Anual Bruto"
-              value={annualIncome}
-              onChange={(e) => setAnnualIncome(e.target.value)}
+              label="Salario Mensal Bruto"
+              value={grossSalary}
+              onChange={(e) => setGrossSalary(e.target.value)}
             />
           </div>
 
@@ -71,7 +71,7 @@ export const InputCalcIRPF = ({ getUser }) => {
               type="submit"
               name={loading ? 'Calculando' : 'Calcular'}
               color="#fafafa"
-              onCLick={calculate}
+              onCLick={handleSignUp}
             />
           </ButtonContainer>
         </form>

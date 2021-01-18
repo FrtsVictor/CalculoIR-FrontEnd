@@ -7,31 +7,29 @@ import { apiIRPF, verifyApiErrors } from '../../services';
 import { AlertMessage } from '../AlertMessage';
 import { useUser } from '../core/UserProvider/useUser';
 
-export const InputCalcIRRF = ({ getUser }) => {
-  const { user: { nome } } = useUser();
+export const FormCalcIRPF = ({ getUser }) => {
+  const { user } = useUser();
   const classes = UseStyles();
-  const [name, setName] = useState(nome || '');
-  const [grossSalary, setGrossSalary] = useState(0);
+  const [name, setName] = useState(user.nome || '');
+  const [annualIncome, setAnnualIncome] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrormessage] = useState(false);
   const [error, setError] = useState(false);
-  const [dependents, setDependents] = useState(0);
-  const [childSupport, setChildSupport] = useState(0);
-  const [errorMessage, setErrorMessage] = useState(false);
 
   const calculate = async () => {
-    const user = {
+    const newUser = {
       nome: name,
-      salarioMensalBruto: grossSalary,
-      dependentes: dependents,
-      pensaoAlimenticia: childSupport,
+      rendimentoAnualBruto: annualIncome,
     };
+
     const resetFiled = () => {
-      setChildSupport('');
+      setAnnualIncome('');
     };
-    await apiIRPF.calculte.IRRF(user)
+
+    await apiIRPF.calculte.IRFP(newUser)
       .then((data) => {
         setLoading(true);
-        setErrorMessage(verifyApiErrors(data));
+        setErrormessage(verifyApiErrors(data));
 
         if (errorMessage) {
           setError(true);
@@ -48,34 +46,23 @@ export const InputCalcIRRF = ({ getUser }) => {
 
   return (
     <>
-      {error && <AlertMessage />}
+      {error && <AlertMessage message={errorMessage} />}
 
       <FormContainer>
         <form className={classes.root} noValidate autoComplete="off">
           <div>
             <TextField
-              id="name"
+              id="nome"
               label="Nome completo"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
+
             <TextField
-              id="grosSalary"
-              label="Salario Mensal Bruto"
-              value={grossSalary}
-              onChange={(e) => setGrossSalary(e.target.value)}
-            />
-            <TextField
-              id="dependents"
-              label="Dependentes"
-              value={dependents}
-              onChange={(e) => setDependents(e.target.value)}
-            />
-            <TextField
-              id="childSupport"
-              label="Pensao alimenticia"
-              value={childSupport}
-              onChange={(e) => setChildSupport(e.target.value)}
+              id="cash"
+              label="Rendimento Anual Bruto"
+              value={annualIncome}
+              onChange={(e) => setAnnualIncome(e.target.value)}
             />
           </div>
 

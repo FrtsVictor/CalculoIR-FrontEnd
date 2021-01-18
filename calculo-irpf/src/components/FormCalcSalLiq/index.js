@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-filename-extension */
 import { React, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
@@ -8,30 +7,37 @@ import { apiIRPF, verifyApiErrors } from '../../services';
 import { AlertMessage } from '../AlertMessage';
 import { useUser } from '../core/UserProvider/useUser';
 
-export const InputCalcINSS = ({ getUser }) => {
-  const { user: { nome } } = useUser();
-
+export const FormCalcSalLiq = ({ getUser }) => {
   const classes = UseStyles();
-  const [name, setName] = useState(nome || '');
-  const [grossSalary, setGrossSalary] = useState(0);
+  // user
+  const { user } = useUser();
+  const [name, setName] = useState(user.nome || '');
+  const [grossSalary, setGrossSalary] = useState(user.salarioMensal || 0);
+  const [dependents, setDependents] = useState(user.dependentes || 0);
+  const [childSupport, setChildSupport] = useState(user.pensaoAlimenticia || 0);
+  // errors
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [errorMessage, setErrormessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
 
-  const handleSignUp = async () => {
-    const newUser = {
+  const resetFiled = () => {
+    setChildSupport('');
+  };
+
+  const calculate = async () => {
+    const calculation = {
       nome: name,
       salarioMensalBruto: grossSalary,
-    };
-    const resetFiled = () => {
-      setGrossSalary('');
+      dependentes: dependents,
+      pensaoAlimenticia: childSupport,
     };
 
-    await apiIRPF.calculte.INSS(newUser)
+    await apiIRPF.calculte.IRRF(calculation)
       .then((data) => {
         setLoading(true);
-        setErrormessage(verifyApiErrors(data));
+        console.log('message', data.status);
 
+        setErrorMessage(verifyApiErrors(data));
         if (errorMessage) {
           setError(true);
           setTimeout(() => { setError(false); }, 2000);
@@ -53,16 +59,34 @@ export const InputCalcINSS = ({ getUser }) => {
         <form className={classes.root} noValidate autoComplete="off">
           <div>
             <TextField
-              id="nome"
+              id="name"
               label="Nome completo"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <TextField
-              id="cash"
+              id="grosSalary"
               label="Salario Mensal Bruto"
               value={grossSalary}
               onChange={(e) => setGrossSalary(e.target.value)}
+            />
+            <TextField
+              id="dependents"
+              label="Dependentes"
+              value={dependents}
+              onChange={(e) => setDependents(e.target.value)}
+            />
+            <TextField
+              id="childSupport"
+              label="Pensao alimenticia"
+              value={childSupport}
+              onChange={(e) => setChildSupport(e.target.value)}
+            />
+            <TextField
+              id="childSupport"
+              label="Total de descontos"
+              value={childSupport}
+              onChange={(e) => setChildSupport(e.target.value)}
             />
           </div>
 
@@ -71,7 +95,7 @@ export const InputCalcINSS = ({ getUser }) => {
               type="submit"
               name={loading ? 'Calculando' : 'Calcular'}
               color="#fafafa"
-              onCLick={handleSignUp}
+              onCLick={calculate}
             />
           </ButtonContainer>
         </form>

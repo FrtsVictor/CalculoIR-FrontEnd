@@ -23,9 +23,10 @@ export const AliquotaTable = () => (
     <TableHead>Aliquota</TableHead>
     <TableHead>Parcela a Deduzir</TableHead>
 
-    {rows.map((row) => (
+    {rows.map((row, index) => (
       <>
         <TableRow
+          key={index}
           style={{
             justifyContent: 'flex-start',
             background: row.color
@@ -35,15 +36,16 @@ export const AliquotaTable = () => (
 
         </TableRow>
         <TableRow
+          key={index + 1}
           style={{
             justifyContent: 'center',
             background: row.color
           }}
         >
           {row.Aliquota}
-
         </TableRow>
         <TableRow
+          key={index + 2}
           style={{
             justifyContent: 'flex-end',
             background: row.color
