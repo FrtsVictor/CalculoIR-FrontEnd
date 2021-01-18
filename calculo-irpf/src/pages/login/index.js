@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-// Icons
+// Icons e @material
 import Button from '@material-ui/core/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-// Hooks
+// Hook & navigation
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../../hooks/AuthProvider';
+import { verifyApiLoginErrors } from '../../services/index';
 // Styles
 import {
   Background, useStyles, LogoContainer, BackHome
 } from './styles';
 import LogoImg from '../../assets/alterdata.png';
-import { verifyApiLoginErrors } from '../../services/index';
 
 export const Login = () => {
   const classes = useStyles();
@@ -22,10 +22,12 @@ export const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
-  // errors
-  const [error, setError] = useState(false);
+  // messages
+  const [message, setMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [color, setColor] = useState("red");
+  const [sucessMessage, setSucessMessage ] = useState(false);
 
   const resetFiled = () => {
     setUsername('');
@@ -37,7 +39,7 @@ export const Login = () => {
 
     if (!username || !password) {
       setErrorMessage(' * Usuario e senha obrigatorios');
-      setError(true);
+      setMessage(true);
       return;
     }
 
@@ -48,10 +50,16 @@ export const Login = () => {
       apiMessageError = verifyApiLoginErrors(apiMessageError);
 
       if (!apiMessageError) {
-        history.push('/home');
+        setColor("green")
+        setSucessMessage("Login efetuado com sucesso!!")
+        setMessage(true)
+
+         setTimeout(() => {
+            history.push('/home');
+          }, 2000);
         return;
       }
-      setError(true);
+      setMessage(true);
       setErrorMessage(apiMessageError);
     } catch (err) {
       console.log('Login  error', err);
@@ -105,10 +113,14 @@ export const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
             {
-              error
+              message
               && (
-              <p style={{ color: 'red', fontSize: '13px', marginBottom: '5px' }}>
+              <p style={{
+                 color: `${color}`,
+                 fontSize: '13px',
+                 marginBottom: '5px' }}>
                 {errorMessage}
+                {sucessMessage}
               </p>
               )
             }

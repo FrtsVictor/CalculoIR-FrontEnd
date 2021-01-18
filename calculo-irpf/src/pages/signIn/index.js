@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
-
+// @material & icons
 import Button from '@material-ui/core/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+// navigation & api
 import { Link, useHistory } from 'react-router-dom';
-import logoImg from '../../assets/alterdata.png';
 import { apiIRPF, verifyApiLoginErrors } from '../../services';
+//styles
+import logoImg from '../../assets/alterdata.png';
 import {
   Background, LogoContainer, useStyles, BackHome
 } from './styles';
 
 export const SignIn = () => {
   const classes = useStyles();
-
   const history = useHistory();
+  // user
   const [name, setName] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  const [error, setError] = useState(false);
+  // messages
+  const [message, setMessage] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
-
   const [loading, setLoading] = useState(false);
+  const [color, setColor] = useState("red");
+  const [sucessMessage, setSucessMessage ] = useState(false);
 
   const resetFiled = () => {
     setUsername('');
@@ -40,7 +44,7 @@ export const SignIn = () => {
 
     if (!username || !password || !name) {
       setErrorMessage('* Usuario e senha obrigatorios');
-      setError(true);
+      setMessage(true);
       return;
     }
 
@@ -50,10 +54,16 @@ export const SignIn = () => {
         const apiMessageError = verifyApiLoginErrors(resp);
 
         if (!apiMessageError) {
-          history.push('/home');
+          setColor("green")
+          setSucessMessage("Usuario cadastrado com sucesso!!")
+          setMessage(true)
+
+          setTimeout(() => {
+            history.push('/login');
+          }, 2000);
           return;
         }
-        setError(true);
+        setMessage(true);
         setErrorMessage(apiMessageError);
         resetFiled();
       }).finally(() => {
@@ -116,18 +126,18 @@ export const SignIn = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {
-                  error
-                  && (
-                    <p style={{ color: 'red', fontSize: '13px' }}>
-                      {errorMessage}
-                    </p>
-                  )
-                }
+              {
+                message
+                && (
+                  <p style={{ color: `${color}`, fontSize: '13.5px', marginBottom: "10px"}}>
+                    {errorMessage} {sucessMessage}
+                  </p>
+                )
+              }
             <Grid item>
-              {/* <Link to="Login" variant="body2" className={classes.link}>
+              <Link to="Login" variant="body2" className={classes.link}>
                 Ja tem cadastro? Voltar para tela de login.
-              </Link> */}
+              </Link>
             </Grid>
             <Button
               style={{ marginTop: '15px' }}
