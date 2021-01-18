@@ -30,7 +30,7 @@ export const useStyles = makeStyles((theme) => ({
     height: 800,
   },
   tabs: {
-    maxWidth: '20%',
+    maxWidth: '16%',
     backgroundColor: '#fefefe',
     minWidth: '16%',
     borderRight: `1px solid ${theme.palette.divider}`,

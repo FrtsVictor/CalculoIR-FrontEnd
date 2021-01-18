@@ -9,7 +9,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {
-  Item1, Item2, Item3, Item4, Item5
+  CalculateINSS, CalculateIRPF, CalculateIRRF, HowToCalculate, WhatIsIRPF, CalculateSalLiq
 } from '../List';
 import { useStyles } from './styles';
 
@@ -72,22 +72,22 @@ export const VerticalTabs = () => {
         <Tab label="Calcule salario Liquido" {...a11yProps(5)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        <Item1 />
+        <WhatIsIRPF />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Item2 />
+        <HowToCalculate />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Item3 />
+        <CalculateIRPF />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <Item4 />
+        <CalculateINSS />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        <Item5 />
+        <CalculateIRRF />
       </TabPanel>
       <TabPanel value={value} index={5}>
-        Item Six
+        <CalculateSalLiq />
       </TabPanel>
     </div>
   );
