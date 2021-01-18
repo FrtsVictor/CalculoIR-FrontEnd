@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-undef */
 import {
   AppBar,
-  Fab, Hidden,
+  Fab,
   List,
   ListItem,
   ListItemText,
@@ -12,62 +12,77 @@ import PersonIcon from '@material-ui/icons/Person';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import LogoImg from '../../assets/logo.png';
 import BackToTop from './BackToTop';
-import HideOnScroll from './HideOnScroll';
-import { LogoContainer } from './Logo';
-import SideDrawer from './SideDrawer';
-// styles
-import { Container, useStyles } from './styles';
 
-const navLinks = [
-  { title: 'login', path: '/login' },
-  { title: 'cadastro', path: '/calculo' },
-  { title: 'search', path: '/search' },
-];
+import { ModalImovel } from '../ModalUser';
+import { useUser } from '../core/UserProvider/useUser';
+
+// styles
+import LogoImg from '../../assets/logo.png';
+import { Container, useStyles } from './styles';
+import { LogoContainer } from './Logo';
 
 export const Header = () => {
+  const { user } = useUser();
   const classes = useStyles();
+
+  //   _________ModalOpen
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
-      <HideOnScroll>
-        <AppBar position="fixed">
-          <Container>
+      <ModalImovel open={open} handleClose={handleClose} />
+      <AppBar position="fixed">
+        <Container>
 
-            <LogoContainer>
-              <Link to="/Home">
-                <img src={LogoImg} alt="" />
-              </Link>
-            </LogoContainer>
+          <LogoContainer>
+            <Link to="/Home">
+              <img id="content" src={LogoImg} alt="" />
+            </Link>
+          </LogoContainer>
 
-            <Hidden smDown>
-              <List
-                component="nav"
-                aria-labelledby="main navigation"
-                className={classes.navListDisplayFlex}
-              >
-                <a href="/login" key="login" className={classes.linkText}>
-                  <ListItem button>
-                    <PersonIcon />
-                    <ListItemText primary="login" />
-                  </ListItem>
-                </a>
-                <a href="/cadastro" key="cadastro" className={classes.linkText}>
-                  <ListItem button>
-                    <PersonAddIcon />
-                    <ListItemText primary="cadastro" />
-                  </ListItem>
-                </a>
-              </List>
-            </Hidden>
-            <Hidden mdUp>
-              <SideDrawer navLinks={navLinks} />
-            </Hidden>
-          </Container>
+          <List
+            component="nav"
+            aria-labelledby="main navigation"
+            className={classes.navListDisplayFlex}
+          >
+            {
+                    user.nome
+                      ? (
+                        <ListItem
+                          style={{ color: '#000000' }}
+                          button
+                          onClick={() => setOpen(true)}
+                        >
+                          <PersonIcon />
+                          <ListItemText primary={`${user.nome}`} />
+                        </ListItem>
+                      )
+                      : (
+                        <>
+                          <a style={{ fontSize: '10px' }} href="/login" key="login" className={classes.linkText}>
+                            <ListItem style={{ fontSize: '10px' }} button>
+                              <PersonIcon />
+                              <ListItemText primary="login" style={{ fontSize: '10px' }} />
+                            </ListItem>
+                          </a>
+                          <a href="/signin" key="cadastro" className={classes.linkText}>
+                            <ListItem button>
+                              <PersonAddIcon />
+                              <ListItemText primary="cadastro" />
+                            </ListItem>
+                          </a>
+                        </>
+                      )
+                }
+          </List>
+        </Container>
 
-        </AppBar>
-      </HideOnScroll>
+      </AppBar>
       <Toolbar id="back-to-top-anchor" />
 
       <BackToTop>

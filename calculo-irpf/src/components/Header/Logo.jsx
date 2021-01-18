@@ -5,10 +5,6 @@ export const Logo = styled.img`
     height: 70px;
     margin: 5px;
 
-&:hover{
-    cursor:pointer;
-}
-
 `;
 
 export const LogoContainer = styled.div`
@@ -29,10 +25,5 @@ margin:15px 15px 15px 50px;
       display:flex;
       align-items:center;
       color: #575757;
-
-      &:hover{
-        transition: none;
-        transform: none;
-        }
     }
 `;

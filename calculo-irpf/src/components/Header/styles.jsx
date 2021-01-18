@@ -24,6 +24,7 @@ export const useStyles = makeStyles({
 
 export const Container = styled.div`
 display: flex;
+flex-wrap: wrap;
 align-items: center;
 justify-content: space-between;
 background-color: #FFFFFF;
@@ -34,17 +35,17 @@ max-width: 100%;
         margin-right: 5px;
     }
 
-    a{
+    a div{
         display: flex;
         align-self:center;
-        font-size:20px;
         align-items:center;
         text-decoration: none;
         color: #000000;
+    }
 
-        &:hover{
-        color: #9595;
-        transition: 0.4s;
-        transform: scale(1.1);
-        }
+    span{
+      font-size: 0.9rem;
+    }
+
+
 `;
