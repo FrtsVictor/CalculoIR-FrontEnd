@@ -71,3 +71,8 @@ justify-content: flex-start;
         }
     }
 `;
+
+// export const Alert = styled.p`
+// color: 'red';
+// font-size: '13px;
+// `;
