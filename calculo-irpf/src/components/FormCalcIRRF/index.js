@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
 import { React, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { UseStyles, FormContainer, ButtonContainer } from './styles';
@@ -31,7 +30,6 @@ export const FormCalcIRRF = ({ getUser }) => {
     await apiIRPF.calculte.IRRF(calculation)
       .then((data) => {
         setLoading(true);
-        console.log('message', data.status);
 
         setErrorMessage(verifyApiErrors(data));
         if (errorMessage) {

@@ -1,7 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/require-default-props */
-/* eslint-disable react/jsx-filename-extension */
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@material-ui/core/Tabs';

@@ -19,8 +19,6 @@ import {
 export const ModalImovel = ({ handleClose, open }) => {
   const { user: { id } } = useUser();
 
-  console.log(id);
-
   return (
     <Container>
       <Modal

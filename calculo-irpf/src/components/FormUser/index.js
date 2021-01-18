@@ -1,5 +1,3 @@
-/* eslint-disable radix */
-/* eslint-disable react/jsx-filename-extension */
 import { React, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { UseStyles, FormContainer, ButtonContainer } from './styles';

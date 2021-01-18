@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
 import React, { useState } from 'react';
 // Icons
 import Button from '@material-ui/core/Button';

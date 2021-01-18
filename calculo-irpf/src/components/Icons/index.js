@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import { Icon } from '@material-ui/core';
 import Calculator from '../../assets/calculator.svg';

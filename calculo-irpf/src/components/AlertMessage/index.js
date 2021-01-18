@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
-/* eslint-disable react/jsx-props-no-spreading */
 import { React, useState } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';

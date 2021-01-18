@@ -1,5 +1,3 @@
-/* eslint-disable import/no-cycle */
-/* eslint-disable import/prefer-default-export */
 import { useContext } from 'react';
 import { UserContext } from './UserProvider';
 

@@ -1,8 +1,4 @@
-/* eslint-disable no-undef */
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/jsx-filename-extension */
 import axios from 'axios';
-// import { AlertMessage } from '../components/AlertMessage';
 import { LOCAL_STORAGE_KEYS } from '../constants';
 
 export const api = axios.create({
@@ -16,7 +12,6 @@ export const apiLogin = axios.create({
 
 export const verifyApiErrors = (data) => {
   if (data.status === 401) {
-    console.log('aqui');
     return ' * Voce precisa estar autenticado';
   }
 
@@ -58,7 +53,6 @@ export const apiIRPF = {
         const { data } = await api.post('api/calculate/irpf', {
           ...user
         });
-        console.log(data);
         return data;
       } catch (error) {
         console.log('error response', error.response);
@@ -82,7 +76,6 @@ export const apiIRPF = {
         const { data } = await api.post('api/calculate/irrf', {
           ...user
         });
-        console.log(data);
         return data;
       } catch (error) {
         console.log('error response', error.response);
@@ -138,7 +131,6 @@ export const apiIRPF = {
             Authorization: `Bearer ${token}`
           }
         });
-        console.log('aqiu');
         return false;
       } catch (error) {
         return error.response;

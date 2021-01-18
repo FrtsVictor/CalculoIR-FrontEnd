@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-filename-extension */
 import { React, useState } from 'react';
 import { Header } from '../../components/Header';
 import { VerticalTabs } from '../../components/VerticalTab';

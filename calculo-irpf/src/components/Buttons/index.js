@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
