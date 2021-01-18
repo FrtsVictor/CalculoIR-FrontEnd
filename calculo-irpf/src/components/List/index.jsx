@@ -1,26 +1,35 @@
 import { React, useState } from 'react';
-import { AliquotaTable } from '../AliquotaTable';
+
+// aliquotaTable
+import {
+  AliquotaTable,
+  aliquotaAnualIRPF,
+  aliquotaMensalINSS,
+  aliquotaMensalIRPF
+} from '../AliquotaTable';
+// calc tables
 import { IRPFTable } from '../IRPFTable';
 import { INSSTable } from '../INSSTable';
 import { IRRFTable } from '../IRRFTable';
+import { SalLiqTable } from '../SalLiqTable';
+//forms
 import { FormCalcIRPF } from '../FormCalcIRPF';
 import { FormCalcSalLiq } from '../FormCalcSalLiq';
+import { FormCalcINSS } from '../FormCalcINSS';
+import { FormCalcIRRF } from '../FormCalcIRRF';
+// styles
 import {
   TextContainer, TableContainer, Container
 } from './styles';
-import { FormCalcINSS } from '../FormCalcINSS';
-import { FormCalcIRRF } from '../FormCalcIRRF';
 
 export const WhatIsIRPF = () => (
   <TextContainer>
     <div>
       <h4>O que é IRPF?</h4>
       <p>
-        Declaração de Imposto de Renda Pessoa Física 2020
-        Todo ano, de março a abril, chega a hora de declarar seu imposto de renda.
-        Até o momento (26/6) quase 25,1 milhões de declarações foram recebidas pela
-        Receita Federal,
-        número bem abaixo das 32 milhões esperadas em 2020.
+      O IRPF, ou Imposto de Renda de Pessoa Física, é um imposto federal brasileiro que incide
+      incide sobre os rendimentos da Pessoa Física e só não precisa apurar quem estiver dentro
+      do limite de isenção de faturamento estabelecido pela Receita Federal.
 
         O atraso na entrega gera multa mínima de R$ 165,74,
         então é importante confirmar se você está no grupo de obrigatoriedade para
@@ -59,86 +68,100 @@ export const WhatIsIRPF = () => (
 
 export const HowToCalculate = () => (
   <TextContainer>
-    <div>
-      <h3>Como calcular IRPF</h3>
+    <h4>Tabelas para calculo de aliquota</h4>
 
-      <p>
-        Declaração de Imposto de Renda Pessoa Física 2020
-        Todo ano, de março a abril, chega a hora de declarar seu imposto de renda.
-        Até o momento (26/6) quase 25,1 milhões de declarações foram recebidas pela
-        Receita Federal,
-        número bem abaixo das 32 milhões esperadas em 2020.
 
-        O atraso na entrega gera multa mínima de R$ 165,74,
-        então é importante confirmar se você está no grupo de obrigatoriedade para
-        não ter problemas futuros com o fisco.
-      </p>
-    </div>
-    <TableContainer>
-      <AliquotaTable />
-    </TableContainer>
   </TextContainer>
 );
 
 export const CalculateIRPF = () => {
-  const [calculateModel, setCalculateModel] = useState(null);
+  const [tableContent, setTableContent] = useState(null);
 
-  const getUser = (user) => {
-    setCalculateModel(null);
-    setCalculateModel(user);
+  const getTableContent = (user) => {
+    setTableContent(null);
+    setTableContent(user);
   };
 
   return (
     <Container>
       <h4>Calculo IRPF(Imposto renda pessoa fisica)</h4>
 
-      <FormCalcIRPF getUser={getUser} />
+      <span >
+       IRPF = [ (Salário anual bruto * 20%) * aliquota ] - dedução
+      </span>
 
       <TableContainer>
-        {calculateModel
-        && <IRPFTable userCalc={calculateModel} />}
+        <p>Aliquota IRPF Anual </p>
+        <AliquotaTable tableData={aliquotaAnualIRPF} />
+      </TableContainer>
+
+      <FormCalcIRPF getTableContent={getTableContent} />
+
+      <TableContainer>
+        {tableContent
+        && <IRPFTable tableContent={tableContent} />}
       </TableContainer>
     </Container>
   );
 };
 
 export const CalculateINSS = () => {
-  const [calculateModel, setCalculateModel] = useState(null);
+  const [tableContent, setTableContent] = useState(null);
 
-  const getUser = (user) => {
-    setCalculateModel(null);
-    setCalculateModel(user);
+  const getTableContent = (user) => {
+    setTableContent(null);
+    setTableContent(user);
   };
 
   return (
     <Container>
       <h4>Calculo INSS 2021</h4>
 
-      <FormCalcINSS getUser={getUser} />
+      <span >
+       INSS = (Salário bruto * alíquota) - dedução
+      </span>
 
       <TableContainer>
-        {calculateModel
-        && <INSSTable userCalc={calculateModel} />}
+        <p>Aliquota INSS Mensal</p>
+        <AliquotaTable tableData={aliquotaMensalINSS}/>
+      </TableContainer>
+
+
+      <FormCalcINSS getTableContent={getTableContent} />
+
+      <TableContainer>
+        {tableContent
+        && <INSSTable tableContent={tableContent} />}
       </TableContainer>
     </Container>
   );
 };
 
 export const CalculateIRRF = () => {
-  const [calculateModel, setCalculateModel] = useState(null);
+  const [tableContent, setTableContent] = useState(null);
 
-  const getUser = (user) => {
-    setCalculateModel(user);
+  const getTableContent = (user) => {
+    setTableContent(user);
   };
 
   return (
     <Container>
+
       <h4>Calculo IRRF(Imposto renda retido na fonte) 2021</h4>
 
-      <FormCalcIRRF getUser={getUser} />
+      <span >
+       IRRF = [ (Salário bruto - dependentes - INSS) * alíquota ] - dedução
+      </span>
 
       <TableContainer>
-        {calculateModel && <IRRFTable userCalc={calculateModel} />}
+        <p>Aliquota IRPF Mensal</p>
+        <AliquotaTable tableData={aliquotaMensalIRPF} />
+      </TableContainer>
+
+      <FormCalcIRRF getTableContent={getTableContent} />
+
+      <TableContainer>
+        {tableContent && <IRRFTable tableContent={tableContent} />}
       </TableContainer>
 
     </Container>
@@ -146,20 +169,23 @@ export const CalculateIRRF = () => {
 };
 
 export const CalculateSalLiq = () => {
-  const [calculateModel, setCalculateModel] = useState(null);
+  const [tableContent, setTableContent] = useState(null);
 
-  const getUser = (user) => {
-    setCalculateModel(user);
+  const getTableContent = (user) => {
+    setTableContent(user);
   };
 
   return (
     <Container>
-      <h4>Calculo IRRF(Imposto renda retido na fonte) 2021</h4>
+      <h4>Calculo Salario Liquido</h4>
+      <span >
+       Salario liq = ( [ (Salário bruto - INSS ) - IRRF ] - descontos )
+      </span>
 
-      <FormCalcSalLiq getUser={getUser} />
+      <FormCalcSalLiq getTableContent={getTableContent} />
 
       <TableContainer>
-        {calculateModel && <IRRFTable userCalc={calculateModel} />}
+        {tableContent && <SalLiqTable tableContent={tableContent} />}
       </TableContainer>
 
     </Container>
