@@ -22,7 +22,7 @@ export const aliquotaMensalIRPF = [
   createData('Até R$ 1903.98', '0%', '0', '#FFFFFF'),
   createData('De R$ 1903.99 até R$ 2826.65', '7.5%', 'R$ 142.80', '#e4e4e4'),
   createData('De R$ 2826.66 até 3751.05', '15%', 'R$ 354.80', '#FFFFFF'),
-  createData('De R$ 3751.06 até R$ 4664.68', '22.5%', 'R$ 7.633,51', '#e4e4e4'),
+  createData('De R$ 3751.06 até R$ 4664.68', '22.5%', 'R$ 636.13', '#e4e4e4'),
   createData('Acima de R$ 4664.69', '27.5%', 'R$ 869.36', '#FFFFFF'),
 ];
 
