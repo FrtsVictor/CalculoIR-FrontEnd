@@ -56,7 +56,7 @@ export const Login = () => {
 
          setTimeout(() => {
             history.push('/home');
-          }, 2000);
+          }, 1000);
         return;
       }
       setMessage(true);
@@ -126,7 +126,7 @@ export const Login = () => {
             }
             <Link
               style={{ fontSize: '14px' }}
-              to="/cadastro"
+              to="/signin"
               variant="body2"
             >
               Não possui uma conta? Crie aqui

@@ -5,6 +5,7 @@ import ShowChartIcon from '@material-ui/icons/ShowChart';
 import SettingsBackupRestoreIcon from '@material-ui/icons/SettingsBackupRestore';
 import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 import { useUser } from '../core/UserProvider/useUser';
+import { useHistory } from 'react-router-dom'
 
 export const DefaultButton = ({ name, color }) => (
   <Button variant="contained" color={color}>
@@ -13,19 +14,20 @@ export const DefaultButton = ({ name, color }) => (
 
 );
 
+
 export const ButtonCalc = ({
   name, color, onCLick, type
 }) => (
   <Button
-    type={type}
-    onClick={(e) => {
-      e.preventDefault();
-      onCLick();
+  type={type}
+  onClick={(e) => {
+    e.preventDefault();
+    onCLick();
     }}
     variant="contained"
     color={color}
     startIcon={<ShowChartIcon />}
-  >
+    >
     {name}
   </Button>
 );
@@ -47,6 +49,7 @@ export const ButtonUpdate = ({name, color, onCLick, type}) => (
 
 
 export const ButtonLogout = ({ color, type }) => {
+  const history = useHistory();
 
   const { clearUser } = useUser();
 
@@ -55,6 +58,7 @@ return (
         onClick={()=>{
           clearUser(),
           localStorage.clear()
+          history.push('/home')
 
         }}
         >

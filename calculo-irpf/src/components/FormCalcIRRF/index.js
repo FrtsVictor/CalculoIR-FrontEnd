@@ -12,27 +12,28 @@ export const FormCalcIRRF = ({ getTableContent }) => {
   const classes = UseStyles();
   // user
   const { user } = useUser();
+  const { user: { token } } = useUser();
+
   const [name, setName] = useState(user.nome || '');
-  const [grossSalary, setGrossSalary] = useState(user.salarioMensal || 0);
-  const [dependents, setDependents] = useState(user.dependentes || 0);
-  const [childSupport, setChildSupport] = useState(user.pensaoAlimenticia || 0);
+  const [grossSalary, setGrossSalary] = useState(user.salarioMensal || '');
+  const [dependents, setDependents] = useState(user.dependentes || '');
+  const [childSupport, setChildSupport] = useState(user.pensaoAlimenticia || '');
   // errors
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
 
-  const calculate = async () => {
-    const calculation = {
+  const calculateIrrp = async () => {
+    const calcModel = {
       nome: name,
       salarioMensalBruto: grossSalary,
       dependentes: dependents,
       pensaoAlimenticia: childSupport,
     };
 
-    await apiIRPF.calculte.IRRF(calculation)
+    await apiIRPF.calculte.IRRF(calcModel, token)
       .then((data) => {
         setLoading(true);
-
         setErrorMessage(verifyApiErrors(data));
         if (errorMessage) {
           setError(true);
@@ -87,7 +88,7 @@ export const FormCalcIRRF = ({ getTableContent }) => {
               type="submit"
               name={loading ? 'Calculando' : 'Calcular'}
               color="#fafafa"
-              onCLick={calculate}
+              onCLick={calculateIrrp}
             />
           </ButtonContainer>
         </form>

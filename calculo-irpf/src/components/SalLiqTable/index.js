@@ -46,12 +46,12 @@ export const SalLiqTable = ({ tableContent }) => {
 
       <TableRow>
         <p>Valor total descontos</p>
-        <p>{currencyFormater(tableContent.valorTotalDescontos)}</p>
+        <p>{currencyFormater(tableContent.totalDescontos)}</p>
       </TableRow>
 
       <TableRow>
         <p>Base Calculo</p>
-        <p>{currencyFormater(tableContent.baseCalculo)}</p>
+        <p>{currencyFormater(tableContent.baseDeCalculo)}</p>
       </TableRow>
 
       <TableRow>

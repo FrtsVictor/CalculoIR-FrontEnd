@@ -182,7 +182,13 @@ export const CalculateSalLiq = () => {
        Salario liq = ( [ (Salário bruto - INSS ) - IRRF ] - descontos )
       </span>
 
+      <TableContainer>
+        <p>Aliquota IRPF Mensal</p>
+        <AliquotaTable tableData={aliquotaMensalIRPF} />
+      </TableContainer>
+
       <FormCalcSalLiq getTableContent={getTableContent} />
+
 
       <TableContainer>
         {tableContent && <SalLiqTable tableContent={tableContent} />}

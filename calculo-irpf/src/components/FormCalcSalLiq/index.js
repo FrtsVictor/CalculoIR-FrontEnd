@@ -12,23 +12,21 @@ export const FormCalcSalLiq = ({ getTableContent }) => {
   const classes = UseStyles();
   // user
   const { user } = useUser();
+  const { user: { token } } = useUser();
   const [name, setName] = useState(user.nome || '');
-  const [grossSalary, setGrossSalary] = useState(user.salarioMensal || 0);
-  const [dependents, setDependents] = useState(user.dependentes || 0);
-  const [childSupport, setChildSupport] = useState(user.pensaoAlimenticia || 0);
-  const [discounts, setDiscounts] = useState(0);
+  const [grossSalary, setGrossSalary] = useState(user.salarioMensal || '');
+  const [dependents, setDependents] = useState(user.dependentes || '');
+  const [childSupport, setChildSupport] = useState(user.pensaoAlimenticia || '');
+  const [discounts, setDiscounts] = useState('');
   // errors
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
 
-  const resetFiled = () => {
-    setChildSupport('');
-  };
 
-  const calculate = async () => {
+  const calculateSalLiq = async () => {
 
-    const calculation = {
+    const calcModel = {
       nome: name,
       salarioMensalBruto: grossSalary,
       dependentes: dependents,
@@ -36,7 +34,7 @@ export const FormCalcSalLiq = ({ getTableContent }) => {
       outrosDescontos: discounts
     };
 
-    await apiIRPF.calculte.SalLiq(calculation)
+    await apiIRPF.calculte.SalLiq(calcModel, token)
       .then((data) => {
         setLoading(true);
 
@@ -48,7 +46,7 @@ export const FormCalcSalLiq = ({ getTableContent }) => {
         }
 
         getTableContent(data.nome ? data : null);
-        resetFiled();
+
       }).finally(
         () => setLoading(false),
       );
@@ -102,7 +100,7 @@ export const FormCalcSalLiq = ({ getTableContent }) => {
               type="submit"
               name={loading ? 'Calculando' : 'Calcular'}
               color="#fafafa"
-              onCLick={calculate}
+              onCLick={calculateSalLiq}
             />
           </ButtonContainer>
         </form>

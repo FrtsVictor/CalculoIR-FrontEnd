@@ -9,9 +9,10 @@ import TextField from '@material-ui/core/TextField';
 import { ButtonCalc } from '../Buttons';
 
 export const FormCalcINSS = ({ getTableContent }) => {
-  const { user } = useUser();
-// user
   const classes = UseStyles();
+  // user
+  const { user } = useUser();
+  const { user: { token } } = useUser();
   const [name, setName] = useState(user.nome || '');
   const [grossSalary, setGrossSalary] = useState(user.salarioMensal || '');
 // messages
@@ -19,13 +20,13 @@ export const FormCalcINSS = ({ getTableContent }) => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrormessage] = useState(false);
 
-  const handleSignUp = async () => {
+  const calculateInss = async () => {
     const calcModel = {
       nome: name,
       salarioMensalBruto: grossSalary,
     };
 
-    await apiIRPF.calculte.INSS(calcModel)
+    await apiIRPF.calculte.INSS(calcModel, token)
       .then((data) => {
         setLoading(true);
         setErrormessage(verifyApiErrors(data));
@@ -68,7 +69,7 @@ export const FormCalcINSS = ({ getTableContent }) => {
               type="submit"
               name={loading ? 'Calculando' : 'Calcular'}
               color="#fafafa"
-              onCLick={handleSignUp}
+              onCLick={calculateInss}
             />
           </ButtonContainer>
         </form>

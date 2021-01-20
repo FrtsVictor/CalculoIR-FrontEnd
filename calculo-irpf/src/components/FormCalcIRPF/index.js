@@ -12,24 +12,21 @@ export const FormCalcIRPF = ({ getTableContent }) => {
   const classes = UseStyles();
   // user
   const { user } = useUser();
+  const { user: { token } } = useUser();
   const [name, setName] = useState(user.nome || '');
-  const [annualIncome, setAnnualIncome] = useState(0);
+  const [annualIncome, setAnnualIncome] = useState('');
   // erros
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrormessage] = useState(false);
   const [error, setError] = useState(false);
 
-  const calculate = async () => {
-    const newUser = {
+  const calculateIrpf = async () => {
+    const calcModel = {
       nome: name,
       rendimentoAnualBruto: annualIncome,
     };
 
-    const resetFiled = () => {
-      setAnnualIncome('');
-    };
-
-    await apiIRPF.calculte.IRFP(newUser)
+    await apiIRPF.calculte.IRFP(calcModel, token)
       .then((data) => {
         setLoading(true);
         setErrormessage(verifyApiErrors(data));
@@ -41,7 +38,7 @@ export const FormCalcIRPF = ({ getTableContent }) => {
         }
 
         getTableContent(data.nome ? data : null);
-        resetFiled();
+
       }).finally(
         () => setLoading(false),
       );
@@ -75,7 +72,7 @@ export const FormCalcIRPF = ({ getTableContent }) => {
               type="submit"
               name={loading ? 'Calculando' : 'Calcular'}
               color="#fafafa"
-              onCLick={calculate}
+              onCLick={calculateIrpf}
             />
           </ButtonContainer>
         </form>
