@@ -141,7 +141,7 @@ export const apiIRPF = {
 
 export const verifyApiErrors = (data) => {
   if (data.status === 401) {
-    return ' * Voce precisa estar autenticado';
+    return ' * Voce precisa estar logado';
   }
 
   if (data.status === 400) {
