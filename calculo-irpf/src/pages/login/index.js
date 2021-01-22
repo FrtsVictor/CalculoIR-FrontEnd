@@ -34,7 +34,7 @@ export const Login = () => {
     setPassword('');
   };
 
-  const handleLogin = async (e) => {
+  const loginUser = async (e) => {
     e.preventDefault();
 
     if (!username || !password) {
@@ -85,7 +85,7 @@ export const Login = () => {
             <Link to="/Home"><img src={LogoImg} alt="" /></Link>
           </LogoContainer>
 
-          <form className={classes.form} noValidate onSubmit={handleLogin}>
+          <form className={classes.form} noValidate onSubmit={loginUser}>
             <TextField
               variant="outlined"
               margin="dense"

@@ -10,11 +10,11 @@ justify-content: center;
 
 export const PapperContainer = styled.div`
     display: flex;
+    min-width: 30vw;
     width: 30vw;
     height: 70vh;
     border-radius: 20px;
-    flex-wrap: wrap;
-    margin:  10% auto;
+    margin:  0 auto;
     color:#03020c;
     background-color: #fff;
     justify-content: center;

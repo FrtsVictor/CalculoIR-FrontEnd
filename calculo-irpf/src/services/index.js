@@ -29,7 +29,6 @@ export const apiIRPF = {
         });
         return data;
       } catch (error) {
-        console.log('error response', error.response);
         return error.response;
       }
     },
@@ -41,10 +40,8 @@ export const apiIRPF = {
           headers: { Authorization: `Bearer ${token}`
         },
         });
-        console.log('dataINSS', data);
         return data;
       } catch (error) {
-        console.log('error response', error.response);
         return error.response;
       }
     },
@@ -59,7 +56,6 @@ export const apiIRPF = {
         });
         return data;
       } catch (error) {
-        console.log('error response', error.response);
         return error.response;
       }
     },
@@ -76,7 +72,6 @@ export const apiIRPF = {
         );
         return data;
       } catch (error) {
-        console.log('error response', error.response);
         return error.response;
       }
     }
@@ -89,21 +84,17 @@ export const apiIRPF = {
         });
         return data;
       } catch (error) {
-        console.log(error.response);
         return error.response;
       }
     },
     login: async (username, password) => {
       try {
         const { data } = await apiLogin.post('authenticate', {
-          username, password,
+          usuario : username,
+          senha: password,
         });
         return data.token;
       } catch (error) {
-        if (error.response.status === 401) {
-          console.log("Ops!', 'username ou senha invalidos', 'error");
-        }
-        console.log(error);
         return error.response;
       }
     },
@@ -116,10 +107,7 @@ export const apiIRPF = {
         });
         return data;
       } catch (error) {
-        if (error.response.status === 404) {
-          console.log('Ops!', 'username invalido', 'error');
-        }
-        return console.log(error);
+        return error.response;
       }
     },
     update: async (user, token) => {
@@ -131,7 +119,6 @@ export const apiIRPF = {
         });
         return resp;
       } catch (error) {
-        console.log(error.response)
         return error.response;
       }
     },
@@ -140,36 +127,43 @@ export const apiIRPF = {
 
 
 export const verifyApiErrors = (data) => {
-  if (data.status === 401) {
-    return ' * Voce precisa estar logado';
-  }
+  if (data){
 
-  if (data.status === 400) {
-    return ' * Dados incorretos';
-  }
+    if (data.status === 401) {
+      return ' * Voce precisa estar logado';
+    }
 
-  if (data.status === 403) {
-    return ' * Login expirado';
-  }
+    if (data.status === 400) {
+      return ' * Dados incorretos';
+    }
 
-  if (data.status > 403) {
-    return ' * Ocorreu um erro interno no servidor';
-  }
+    if (data.status === 403) {
+      return ' * Login expirado';
+    }
+
+    if (data.status > 403) {
+      return ' * Ocorreu um erro interno no servidor';
+    }
+}
   return null;
 };
 
 export const verifyApiLoginErrors = (data) => {
-  if (data.status === 400 && data.data.details === 'User already registered') {
-    return ' * Usuario ja cadastrado';
-  }
 
-  if (data.status === 400) {
-    return ' * Login ou senha invalidos';
-  }
+  if(data){
 
-  if (data.status > 401) {
-    return ' * Ocorreu um erro interno no servidor';
-  }
+    if (data.status === 400 && data.data.details === 'Usuario ja cadastrado') {
+      return ' * Usuario ja cadastrado';
+    }
 
+    if (data.status === 400) {
+      return ' * Login ou senha invalidos';
+    }
+
+    if (data.status > 401) {
+      return ' * Ocorreu um erro interno no servidor';
+    }
+
+  }
   return null;
 };

@@ -37,8 +37,8 @@ export const SignIn = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     const newUser = {
-      username,
-      password,
+      usuario: username,
+      senha: password,
       nome: name
     };
 

@@ -28,10 +28,10 @@ export const aliquotaMensalIRPF = [
 
 
 export const aliquotaMensalINSS = [
-  createData('Até R$ 1045.00', '7.5%', '0', '#FFFFFF'),
-  createData('De R$ 1045.01 até R$ 2089.60', '9%', 'R$ 15.67', '#e4e4e4'),
-  createData('De R$ 2089.61 até 3134.40', '12%%', 'R$ 78.36', '#FFFFFF'),
-  createData('De R$ 3134.41 até R$ 6101.06', '14%', 'R$ 141.05', '#e4e4e4'),
+  createData('Até R$ 1100.00', '7.5%', '0', '#FFFFFF'),
+  createData('De R$ 1100.01 até R$ 2203.48', '9%', 'R$ 16.500', '#e4e4e4'),
+  createData('De R$ 2203.49 até 3305.22', '12%%', 'R$ 82.604', '#FFFFFF'),
+  createData('De R$ 3305.23 até R$ 6433.57', '14%', 'R$ 148.708', '#e4e4e4'),
 ];
 
 export const AliquotaTable = ({ tableData }) => (
