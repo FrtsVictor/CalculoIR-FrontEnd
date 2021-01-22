@@ -3,15 +3,15 @@ import { LOCAL_STORAGE_KEYS } from '../constants';
 import { useUser } from '../components/core/UserProvider/useUser';
 
 export const api = axios.create({
-  baseURL: 'http://localhost:8080/v1/',
-  // baseURL: 'https://calc-irpf.herokuapp.com/',
+  // baseURL: 'http://localhost:8080/v1/',
+  baseURL: 'https://calc-irpf.herokuapp.com/',
   headers: { Authorization: `Bearer ${localStorage.getItem(LOCAL_STORAGE_KEYS.userAuthToken)}` },
 })
 ;
 
 export const apiLogin = axios.create({
-  baseURL: 'http://localhost:8080/v1/'
-  // baseURL: 'https://calc-irpf.herokuapp.com//'
+  // baseURL: 'http://localhost:8080/v1/'
+  baseURL: 'https://calc-irpf.herokuapp.com/'
 });
 
 
